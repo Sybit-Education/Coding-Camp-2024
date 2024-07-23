@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdn.rawgit.com/Airtable/airtable.js/master/build/airtable.browser.js"></script>
+        <script src="api-key.js"></script>
+        <title>Sytivities</title>
+    </head>
+    <body>
+
+        <input id="search" placeholder="Search" onkeydown="if (event.key == 'Enter') requestOpenStreetMapSearch(event.target.value)" style="width: 500px;">
+
+        <p id="status"></p>
+        <div id="results">
+
+        </div>
+
+        <div id="result-template" hidden>
+            <h2 class="name"></h2>
+            <p class="address"></p>
+            <p class="location"></p>
+            <p class="opening-times"></p>
+            <p><a target="_blank" class="website" hidden></a></p>
+            <p><a class="google-maps" target="_blank" hidden>Go To Google Maps</a></p>
+            <p><button onclick="openUploadDialog(event)">Upload</button></p>
+        </div>
+
+        <div id="dialog" hidden>
+            <span>Name:</span>
+            <input name="name">
+            <span>Description: <a class="generate" tabindex="1" onclick="this.setAttribute('hidden', 'hidden'); displayChatGptResult()">Generate</a></span>
+            <textarea name="description"></textarea>
+            <span>OpenStreetMaps Identifier</span>
+            <input name="osm_id" type="number">
+            <span>Street:</span>
+            <input name="street">
+            <span>Number:</span>
+            <input name="number">
+            <span>Zip:</span>
+            <input name="zip" type="number">
+            <span>City:</span>
+            <input name="city">
+            <span>Latitude:</span>
+            <input name="latitude" type="number">
+            <span>Longitude:</span>
+            <input name="longitude" type="number">
+            <span>Website:</span>
+            <input name="website" type="url">
+            <button onclick="document.querySelector('#dialog').setAttribute('hidden', 'hidden')">Cancel</button>
+            <button onclick="document.querySelector('#dialog').setAttribute('hidden', 'hidden'); uploadToDatabase()">Upload</button>
+        </div>
+
+    </body>
+</html>
+
+<style>
+    :root {
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.2em;
+        letter-spacing: 0.01em;
+    }
+    #search {
+        padding: 5px;
+        font-size: 18px;
+    }
+    #dialog {
+        display: grid;
+        padding: 20px;
+        position: absolute;
+        min-width: 300px;
+        max-width: 400px;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        background-color: white;
+        box-shadow: 0px 2px 5px #00000040;
+
+    }
+    #dialog[hidden] { display: none }
+    #dialog input, #dialog textarea, #dialog button { padding: 5px;  margin-bottom: 20px }
+    #dialog > :last-child { margin-bottom: 0 }
+    a {
+        cursor: pointer;
+        color: blue;
+    }
+</style>
+
+<!-- Schema
+{
+    name,
+    description,
+    image,
+    osm_id,
+    street,
+    number,
+    zip,
+    city,
+    latitude,
+    longitude,
+    website,
+}
+-->
+
+
+<script>
+
+let globalResults = [];
+let dialog;
+const Airtable = require('airtable');
+const airtable = new Airtable({ apiKey: AIRTABLE_API_KEY}).base('apppt6Gqr8AhhWcG2');
+
+function requestOpenStreetMapSearch(searchString) {
+    fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchString)}`).then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+    }).then(async data => {
+        let results = [];
+        for (entry of data) {
+            const result = await requestOpenStreetMapsEntry(entry.osm_id, entry.osm_type);
+            result.type = entry.type;
+            results.push(result);
+        }
+        return results;
+    }).then(results => displayResults(results));
+}
+
+function requestOpenStreetMapsEntry(id, type) {
+    return fetch(`https://api.openstreetmap.org/api/0.6/${encodeURIComponent(type)}/${encodeURIComponent(id)}.json`).then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+    }).then(data => data.elements[0]).then(data => {
+        const result = {
+            id: data.id,
+            name: data.tags.name,
+            type: data.type,
+            address: (data.tags['addr:street'] && data.tags['addr:housenumber'] && data.tags['addr:postcode'] && data.tags['addr:city']) ?
+                {street : data.tags['addr:street'], number: data.tags['addr:housenumber'], zip: data.tags['addr:postcode'], city: data.tags['addr:city'] } : undefined,
+            location: (data.lat && data.lon) ? { latitude: data.lat, longitude: data.lon } : undefined,
+            website: data.tags.website,
+            openingTimes: data.tags.opening_hours,
+            tourismTag: data.tags.tourism
+        };
+        return result;
+    });
+}
+
+function requestChatGptDescription(token, resultFunction) {
+    const method = 'POST';
+    const headers = {
+        'Authorization': `Bearer ${CHAT_GPT_API_KEY}`,
+        'Content-Type': 'application/json'
+    };
+    const body = JSON.stringify({
+        model: 'gpt-3.5-turbo-0125',
+        messages: [
+            {
+                role: 'user',
+                content: 'Antworte mir einfach "Hallo Welt!"'
+            }
+        ]
+    });
+    fetch('https://api.openai.com/v1/chat/completions', { method, headers, body })
+        .then(response => resultFunction(response.choices[0].messages.content))
+        .error(error => resultFunction(error));
+}
+
+function requestAirtableWrite(table, fields, recordFunction, id) {
+    const response = (error, records) => {
+        if (error) { console.error(error); return; }
+        records.forEach((record) => recordFunction(record));
+    };
+    if (id) airtable(table).update([{ id, fields }], (error, records) => response(error, records));
+    else airtable(table).create([{ fields }], (error, records) => response(error, records));
+}
+
+function displayResults(results) {
+    globalResults = results;
+    document.querySelector('#status').innerHTML = '';
+    document.querySelector('#results').innerHTML = '';
+    const template = document.querySelector('#result-template');
+    const resultElements = document.querySelector('#results');
+    if (results.length == 0) document.querySelector('#status').innerHTML = 'No result found!';
+    let i = 0;
+    for (const result of results) {
+        const resultEntry = template.cloneNode(true);
+        resultEntry.setAttribute('index', i++);
+        resultEntry.removeAttribute('hidden');
+        resultEntry.removeAttribute('id');
+        resultEntry.querySelector('.name').innerHTML = `${result.name} (${result.type}) <samp>${result.id}</samp>`;
+        if (result.location) {
+            resultEntry.querySelector('.location').innerHTML = `${result.location.latitude}<br>${result.location.longitude}`;
+            resultEntry.querySelector('.google-maps').setAttribute('href', `https://www.google.com/maps/place/${result.location.latitude},${result.location.longitude}`);
+            resultEntry.querySelector('.google-maps').removeAttribute('hidden');
+        }
+        if (result.address) {
+            resultEntry.querySelector('.address').innerHTML = `${result.address.street} ${result.address.number}<br>${result.address.zip} ${result.address.city}`;
+            resultEntry.querySelector('.google-maps').setAttribute('href', `https://maps.google.com/?q=${result.address.street} ${result.address.number}, ${result.address.zip} ${result.address.city}`);
+            resultEntry.querySelector('.google-maps').removeAttribute('hidden');
+        }
+        if (result.website) {
+            resultEntry.querySelector('.website').removeAttribute('hidden');
+            resultEntry.querySelector('.website').setAttribute('href', `${result.website}`);
+            resultEntry.querySelector('.website').innerHTML = `${result.website}`;
+        }
+        if (result.openingTimes) {
+            resultEntry.querySelector('.opening-times').innerHTML = `${result.openingTimes}`;
+        }
+        resultElements.appendChild(resultEntry);
+    }
+}
+
+function displayChatGptResult() {
+    requestChatGptDescription(dialog.querySelector('.name').innerHTML, (response) => dialog.querySelector('.description').input = response)
+}
+
+function openUploadDialog(event) {
+    const result = globalResults[event.target.parentElement.parentElement.getAttribute('index')];
+    dialog.querySelector('[name="name"]').value = result.name || '';
+    dialog.querySelector('[name="description"]').value = result.description || '';
+    dialog.querySelector('[name="osm_id"]').value = result.id || ''
+    dialog.querySelector('[name="street"]').value = result.address ? result.address.street || '' : '';
+    dialog.querySelector('[name="number"]').value = result.address ? result.address.number || '' : '';
+    dialog.querySelector('[name="zip"]').value = result.address ? result.address.zip || '' : '';
+    dialog.querySelector('[name="city"]').value = result.address ? result.address.city || '' : '';
+    dialog.querySelector('[name="latitude"]').value = result.location ? result.location.latitude || '' : '';
+    dialog.querySelector('[name="longitude"]').value = result.location ? result.location.longitude || '' : '';
+    dialog.querySelector('[name="website"]').value = result.website || '';
+    dialog.querySelector('.generate').removeAttribute('hidden');
+    dialog.removeAttribute('hidden');
+}
+
+async function uploadToDatabase() {
+
+    const activity = {
+        name: dialog.querySelector('[name="name"]').value,
+        description: dialog.querySelector('[name="description"]').value,
+        osm_id: Number(dialog.querySelector('[name="osm_id"]').value),
+        website: dialog.querySelector('[name="website"]').value
+    };
+
+    const address = {
+        street : dialog.querySelector('[name="street"]').value,
+        number: dialog.querySelector('[name="number"]').value,
+        zip: Number(dialog.querySelector('[name="zip"]').value),
+        city: dialog.querySelector('[name="city"]').value
+    }
+
+    const location = {
+        latitude: Number(dialog.querySelector('[name="latitude"]').value),
+        longitude: Number(dialog.querySelector('[name="longitude"]').value)
+    }
+
+    addressId = undefined;
+    locationId = undefined;
+
+    requestAirtableWrite('Activity', activity, (activityRecord) => {
+        requestAirtableWrite('Address', address, (addressRecord) => {
+            requestAirtableWrite('Activity', { address: [addressRecord.id] }, (record) => {}, activityRecord.id);
+        });
+        requestAirtableWrite('Location', location, (locationRecord) => {
+            requestAirtableWrite('Activity', { location: [locationRecord.id] }, (record) => {}, activityRecord.id);
+        });
+    });
+
+}
+
+document.addEventListener("DOMContentLoaded", event => {
+    const input = document.querySelector('#search');
+    dialog = document.querySelector('#dialog');
+    if (input.value.length !== 0) {
+        requestOpenStreetMapSearch(input.value);
+    }
+});
+
+</script>

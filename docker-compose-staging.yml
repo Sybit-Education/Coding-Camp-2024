@@ -1,0 +1,24 @@
+services:
+  sytivities:
+    image:  registry.gitlab.sybit.dev/sybit/education/sybit-coding-camp/coding-camp-2024:latest
+    container_name: sytivities
+    restart: unless-stopped
+    networks:
+      - sytivities-network
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefik.http.routers.sytivities.rule=Host(`sytivities.namibia.sybit.de`)"
+      - "traefik.http.routers.sytivities.entrypoints=websecure"
+      - "traefik.http.routers.sytivities.tls=true"
+      - "traefik.docker.network=traefik"
+      - "io.portainer.accesscontrol.teams=azubis"
+
+networks:
+  sytivities-network:
+    external: false
+    ipam:
+      driver: default
+  traefik:
+    external: true

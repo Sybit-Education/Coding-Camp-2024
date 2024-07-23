@@ -1,0 +1,23 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+.btn-primary {
+  background-color: #6bc4f6;
+  border-color: #6bc4f6;
+  color: white;
+
+  &:hover {
+    opacity: 0.4;
+    background-color: #6bc4f6;
+    border-color: #6bc4f6;
+    color: black;
+  }
+
+  &:active {
+    opacity: 1;
+    background-color: #6bc4f6 !important;
+    border-color: #6bc4f6 !important;
+  }
+}
