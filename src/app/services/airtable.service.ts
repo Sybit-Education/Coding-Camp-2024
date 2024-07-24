@@ -3,7 +3,7 @@ import {concatMap, forkJoin, from, map, Observable, switchMap} from "rxjs";
 import {Activity} from "../types/activity.interface";
 import {TypesInterface} from "../types/types.interface";
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 
 @Injectable({
