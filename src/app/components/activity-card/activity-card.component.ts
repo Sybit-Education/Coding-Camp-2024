@@ -14,10 +14,10 @@ import { RouterLink } from '@angular/router';
 export class ActivityCardComponent {
   @Input() activity: Activity | null = null;
 
-  isBookmarked : boolean = false;
+  // isBookmarked = false;
 
-  onBookmark() {
-    this.isBookmarked = !this.isBookmarked
-    console.log(this.isBookmarked)
-  }
+  // onBookmark() {
+  //   this.isBookmarked = !this.isBookmarked
+  // }
+  //TODO: Add later
 }
