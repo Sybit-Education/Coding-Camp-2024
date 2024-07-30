@@ -5,16 +5,16 @@ import {FormsModule} from "@angular/forms";
   selector: 'app-home-search',
   standalone: true,
   imports: [
-    FormsModule
+    FormsModule,
   ],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })
 export class SearchComponent {
-@Output() searchEvent= new EventEmitter<string>();
-searchTerm: string = ''
+  @Output() searchEvent = new EventEmitter<string>();
+  searchTerm = ''
 
-onSearch() {
-  this.searchEvent.emit(this.searchTerm);
-}
+  onSearch() {
+    this.searchEvent.emit(this.searchTerm);
+  }
 }
