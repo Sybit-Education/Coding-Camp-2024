@@ -5,3 +5,8 @@
 @if (activity?.media) {
     <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
 }
+@if (activity?.website) {
+    <button type="button" class="btn">
+        <a href="{{activity?.website}}">Besuche die Website</a>
+    </button>
+}
