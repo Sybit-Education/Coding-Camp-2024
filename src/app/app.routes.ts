@@ -3,6 +3,10 @@ import {HomeComponent} from "./features/home/home.component";
 import {DetailComponent} from "./components/detail/detail.component";
 import {AboutUsComponent} from "./features/about-us/about-us.component";
 
+import { ImprintComponent } from './features/imprint/imprint.component';
+import { PrivacyPolicyComponent } from './features/privacy-policy/privacy-policy.component';
+
+
 export const routes: Routes = [
   {
     path: '',
@@ -15,5 +19,15 @@ export const routes: Routes = [
   {
     path: 'about-us',
     component: AboutUsComponent
+  },
+  {
+
+    path: "imprint",
+    component: ImprintComponent
+ },
+  {
+    path: 'privacy-policy',
+    component: PrivacyPolicyComponent
+
   }
 ];
