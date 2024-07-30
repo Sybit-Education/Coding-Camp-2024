@@ -1,9 +1,7 @@
 # Sybit Coding Camp 2024 - SyTivities
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/dffae123-7ad2-4d35-aea3-2fa385737d34/deploy-status)](https://app.netlify.com/sites/sytivities/deploys)
-
 ![Angular](https://img.shields.io/badge/angular-%23DD0031.svg?style=for-the-badge&logo=angular&logoColor=white)
-
 [![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
 
 
