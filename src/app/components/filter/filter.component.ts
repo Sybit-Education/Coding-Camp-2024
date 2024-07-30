@@ -29,7 +29,7 @@ export class FilterComponent implements OnInit {
     resetFilters() {
         const buttons = this.elRef.nativeElement.querySelectorAll('button[data-bs-toggle]');
 
-        buttons.forEach((button: any) => {
+        buttons.forEach((button: HTMLElement) => {
             button.classList.remove('active')
         });
 
