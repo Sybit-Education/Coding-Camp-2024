@@ -1,10 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Activity } from '../../types/activity.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-activity-card',
   standalone: true,
-  imports: [],
+  imports: [
+    RouterLink
+  ],
   templateUrl: './activity-card.component.html',
   styleUrl: './activity-card.component.scss'
 })

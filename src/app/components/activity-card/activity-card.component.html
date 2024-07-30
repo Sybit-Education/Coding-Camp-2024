@@ -37,7 +37,7 @@
           class="text-sm text-nowrap w-full overflow-hidden overflow-ellipsis"
           >{{ activity?.description || "No description" }}</span
         >
-        <a class="text-md font-semibold hover:opacity-75">Read more</a>
+        <a routerLink="/activity-details/{{ activity?.osm_id }}" class="text-md font-semibold hover:opacity-75">Read more</a>
       </div>
     </div>
   </div>
