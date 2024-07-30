@@ -3,7 +3,7 @@
   class="w-full max-w-[400px] cursor-pointer h-[300px] mt-1 mb-1 flex flex-col rounded-lg overflow-hidden shadow-sm shadow-black">
   <div
     class="w-full max-w-[363px] max-h-[220px] min-h-[220px] flex justify-center items-center">
-    @if(activity?.media) {
+    @if(activity?.media && activity?.media.file?.[0].url) {
       <img class="w-full h-full bg-black object-cover" src="{{ activity?.media.file?.[0].url }}" alt="Preview image"/>
     } @else {
       <img class="w-full h-full bg-black object-cover" src="{{ image }}" alt="Preview image"/>
