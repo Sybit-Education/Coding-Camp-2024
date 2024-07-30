@@ -1,4 +1,4 @@
-export interface InterestInterface {
+export interface Interest {
     id: number,
     name: string
 }
