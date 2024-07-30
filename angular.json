@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "cc-2024": {
+    "sytivities": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/cc-2024",
+            "outputPath": "dist/sytivities",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -66,10 +66,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "cc-2024:build:production"
+              "buildTarget": "sytivities:build:production"
             },
             "development": {
-              "buildTarget": "cc-2024:build:development"
+              "buildTarget": "sytivities:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -77,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "cc-2024:build"
+            "buildTarget": "sytivities:build"
           }
         },
         "test": {
