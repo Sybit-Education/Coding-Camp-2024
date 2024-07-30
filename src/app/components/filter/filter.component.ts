@@ -20,7 +20,8 @@ export class FilterComponent implements OnInit {
     @Output()
     filtersEvent = new EventEmitter<TypesInterface[]>()
 
-    constructor(private airtable: AirtableService, private elRef: ElementRef) {}
+    constructor(private airtable: AirtableService, private elRef: ElementRef) {
+    }
 
     ngOnInit() {
         this.types$ = this.airtable.getTypeList();
@@ -37,7 +38,7 @@ export class FilterComponent implements OnInit {
     }
 
     onFilter(type: TypesInterface) {
-        if(this.filters.includes(type)) {
+        if (this.filters.includes(type)) {
             this.filters = this.filters.filter(filter => filter !== type)
         } else {
             this.filters.push(type)
