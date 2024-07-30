@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col">
+        <app-home-filter (filtersEvent)="applyActiveFilters($event)"></app-home-filter>
+    </div>
+    <div class="col">
+        <app-home-search (searchEvent)="applySearchTerm($event)"></app-home-search>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 
 @Component({
@@ -11,5 +11,10 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './search.component.scss'
 })
 export class SearchComponent {
+@Output() searchEvent= new EventEmitter<string>();
+searchTerm: string = ''
 
+onSearch() {
+  this.searchEvent.emit(this.searchTerm);
+}
 }
