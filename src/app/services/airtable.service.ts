@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {Injectable} from '@angular/core';
 import {concatMap, forkJoin, from, map, Observable, switchMap} from "rxjs";
 import {Activity} from "../types/activity.interface";
