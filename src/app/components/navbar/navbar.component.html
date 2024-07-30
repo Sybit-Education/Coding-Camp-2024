@@ -14,7 +14,10 @@
             autocomplete="off"
             spellcheck="false"
             placeholder="Search a place"
-            class="text-base w-full flex outline-none bg-transparent pr-5 border-none" />
+            class="text-base w-full flex outline-none bg-transparent pr-5 border-none"
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()"
+            />
     </div>
     <a
         href=""
@@ -22,3 +25,5 @@
         >Today's trends</a
     >
 </div>
+<div class="w-full relative min-h-[50px] max-h-[50px] h-[50px] bg-transparent">
+
