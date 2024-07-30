@@ -1,6 +1,9 @@
 {{activity?.name}}
+@if (activity?.age_restriction) {
+    <div> Mindestalter: {{activity?.age_restriction}} Jahre</div>
+}
 @if (activity?.description){
-    <div> {{activity?.description}}</div>
+    <div>{{activity?.description}}</div>
 }
 @if (activity?.media) {
     <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
