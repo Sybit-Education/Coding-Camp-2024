@@ -15,4 +15,5 @@ export interface Activity {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   media: any;
   age_restriction?: number;
+  barrier_free: boolean
 }
