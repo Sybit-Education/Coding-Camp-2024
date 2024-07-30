@@ -28,6 +28,7 @@ import { Activity } from "../../types/activity.interface";
 		ActivityCardComponent,
 		NavbarComponent,
 		FeedSettingsComponent,
+		
 	],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
@@ -42,4 +43,6 @@ export class HomeComponent implements OnInit {
 			this.activities = activitiesList
 		});
 	}
+	
+	
 }
