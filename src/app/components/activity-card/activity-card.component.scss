@@ -2,3 +2,6 @@ a {
     user-select: none;
     cursor: pointer;
 }
+img {
+    -webkit-user-drag: none;
+}
