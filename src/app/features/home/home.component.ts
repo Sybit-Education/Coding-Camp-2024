@@ -7,6 +7,7 @@ import {RouterLink} from "@angular/router";
 import {ListComponent} from "../../components/list/list.component";
 import {AsyncPipe} from "@angular/common";
 import {FooterComponent} from "../../components/footer/footer.component";
+import { ActivityCardComponent } from '../../components/activity-card/activity-card.component';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ import {FooterComponent} from "../../components/footer/footer.component";
     RouterLink,
     ListComponent,
     AsyncPipe,
-    FooterComponent
+    FooterComponent,
+    ActivityCardComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
