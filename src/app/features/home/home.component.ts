@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
 	ngOnInit(): void {
 		this.activityService.getActivityList().subscribe((activitiesList) => {
 			this.activities = activitiesList
+			console.log(activitiesList)
 		});
 	}
 	

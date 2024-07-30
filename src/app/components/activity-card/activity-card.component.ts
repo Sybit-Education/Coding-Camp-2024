@@ -11,7 +11,10 @@ import { RouterLink } from '@angular/router';
   templateUrl: './activity-card.component.html',
   styleUrl: './activity-card.component.scss'
 })
+
 export class ActivityCardComponent {
+  image: string = "assets/images/logo.png"
+
   @Input() activity: Activity | null = null;
 
   // isBookmarked = false;

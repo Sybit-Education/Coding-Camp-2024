@@ -15,31 +15,35 @@ export class AirtableService {
   constructor(private http: HttpClient) {}
 
   getActivityList(): Observable<Activity[]> {
-    return from(this.getTypeList().pipe(
-      concatMap(types => (
-          from(this.http.get<Activity[]>(environment.apiUrl + '/activities')).pipe(
-            map((records: any) => {
-              return records.map((record: any) => {
-                return {
-                  name: record.fields['name'] as string,
-                  description: record.fields['description'] as string,
-                  type: types.find((type: any) => type.id === (record.fields?.['type']?.[0])) as TypesInterface,
-                  street: record.fields['street'] as string,
-                  number: record.fields['number'] as string,
-                  zip: record.fields['zip'] as string,
-                  city: record.fields['city'] as string,
-                  latitude: record.fields['latitude'] as number,
-                  longitude: record.fields['longitude'] as number,
-                  website: record.fields['website'] as string,
-                  osm_id: record.fields['osm_id'] as string,
-                  age_restriction: record.fields['age_restriction'] as number,
-                  barrier_free: record.fields['barrier_free'] as boolean,
-                } as Activity
-              }) as Activity[]
-            })
-          )
+    return forkJoin([
+      this.getTypeList(),
+      this.getMediaList()
+    ]).pipe(
+      switchMap(([types, medias]) => {
+        return from(this.http.get<Activity[]>(environment.apiUrl + '/activities/')).pipe(
+          map((records: any) => {
+            return records.map((record: any) => {
+              return {
+                name: record.fields['name'] as string,
+                description: record.fields['description'] as string,
+                type: types.find((type: any) => type.id === (record.fields?.['type']?.[0])) as TypesInterface,
+                street: record.fields['street'] as string,
+                number: record.fields['number'] as string,
+                zip: record.fields['zip'] as string,
+                city: record.fields['city'] as string,
+                latitude: record.fields['latitude'] as number,
+                longitude: record.fields['longitude'] as number,
+                website: record.fields['website'] as string,
+                osm_id: record.fields['osm_id'] as string,
+                media: medias.find((media: any) => media.id === (record.fields?.['media']?.[0])) as any,
+                age_restriction: record.fields['age_restriction'] as number,
+                barrier_free: record.fields['barrier_free'] as boolean,
+              } as Activity
+            }) as Activity[]
+          })
         )
-      )))
+      })
+    )
   }
 
   getActivitiesByOsmId(osmId: string): Observable<Activity[]> {
