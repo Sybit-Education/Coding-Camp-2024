@@ -12,5 +12,6 @@ export interface Activity {
   latitude: number;
   longitude: number;
   website?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   media: any;
 }
