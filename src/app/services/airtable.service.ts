@@ -32,7 +32,8 @@ export class AirtableService {
                   longitude: record.fields['longitude'] as number,
                   website: record.fields['website'] as string,
                   osm_id: record.fields['osm_id'] as string,
-                  age_restriction: record.fields['age_restriction'] as number
+                  age_restriction: record.fields['age_restriction'] as number,
+                  barrier_free: record.fields['barrier_free'] as boolean,
                 } as Activity
               }) as Activity[]
             })
@@ -63,7 +64,8 @@ export class AirtableService {
                 website: record.fields['website'] as string,
                 osm_id: record.fields['osm_id'] as string,
                 media: medias.find((media: any) => media.id === (record.fields?.['media']?.[0])) as any,
-                age_restriction: record.fields['age_restriction'] as number
+                age_restriction: record.fields['age_restriction'] as number,
+                barrier_free: record.fields['barrier_free'] as boolean,
               } as Activity
             }) as Activity[]
           })
