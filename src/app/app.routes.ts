@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: AboutUsComponent
   },
   {
-    path: 'dataprotection',
+    path: 'privacy-policy',
     component: PrivacyPolicyComponent
   }
 ];
