@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
-<div class="w-full h-full flex-col flex items-center flex-wrap">
+<div class="w-full h-full flex-col flex items-center">
     <app-feed-settings></app-feed-settings>
-    <app-activity-card
+    <!-- <app-activity-card
         loc_id=""
         name="Rheinfall"
         rating=""
@@ -24,5 +24,12 @@
         name="Rheinfall"
         rating=""
         description="Testbeschreibung"
-        imageUrl="https://reisebloegle.de/wp-content/gallery/rheinfall2015/psx_20210525_091307_copy_1200x900.jpg"></app-activity-card>
+        imageUrl="https://reisebloegle.de/wp-content/gallery/rheinfall2015/psx_20210525_091307_copy_1200x900.jpg"></app-activity-card> -->
+        @for(activity of activities; track activity) {
+            <app-activity-card
+                [activity] = "activity"
+            >
+
+            </app-activity-card>
+        }
 </div>

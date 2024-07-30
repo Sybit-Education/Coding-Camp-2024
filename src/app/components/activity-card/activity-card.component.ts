@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Activity } from '../../types/activity.interface';
 
 @Component({
   selector: 'app-activity-card',
@@ -8,11 +9,7 @@ import { Component, Input } from '@angular/core';
   styleUrl: './activity-card.component.scss'
 })
 export class ActivityCardComponent {
-  @Input() name: string = "";
-  @Input() loc_id: string = "";
-  @Input() rating: string = "";
-  @Input() imageUrl: string = "";
-  @Input() description: string = "";
+  @Input() activity: Activity | null = null;
 
   isBookmarked : boolean = false;
 
