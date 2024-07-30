@@ -47,3 +47,12 @@ jobs:
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
+      - name: Deploy to Webserver by trigger Watchtower
+        uses: v2tec/watchtower-action@v2
+        with:
+          repository: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          trigger: always
+          debug: true
+
