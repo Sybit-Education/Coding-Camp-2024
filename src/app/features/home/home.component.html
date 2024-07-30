@@ -1,1 +1,13 @@
+<app-navbar></app-navbar>
+<div class="w-full h-full flex-col flex items-center">
+    <app-feed-settings></app-feed-settings>
+        @for(activity of activities; track activity) {
+            <app-activity-card
+                [activity] = "activity"
+            >
+
+            </app-activity-card>
+        }
+</div>
+
 <app-map></app-map>
