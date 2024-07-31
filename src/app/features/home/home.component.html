@@ -15,9 +15,9 @@
             <div class="w-full h-full flex-col flex items-center">
                 @for (activity of activities$ | async; track activity) {
                     <app-activity-card
-                            [activity]="activity"
+                        [activity] = "activity"
                     >
-
+        
                     </app-activity-card>
 
                 }
