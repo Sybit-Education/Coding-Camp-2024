@@ -14,24 +14,26 @@ import {AirtableService} from '../../services/airtable.service';
 import {ActivityCardComponent} from "../../components/activity-card/activity-card.component";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {FeedSettingsComponent} from "../../components/feed-settings/feed-settings.component";
+import {MapViewComponent} from "../map-view/map-view.component";
 
 @Component({
 	selector: "app-home",
 	standalone: true,
-	imports: [
-		HeaderComponent,
-		SearchComponent,
-		FilterComponent,
-		MapComponent,
-		RouterLink,
-		ListComponent,
-		AsyncPipe,
-		FooterComponent,
-		ActivityCardComponent,
-		NavbarComponent,
-		FeedSettingsComponent,
-		
-	],
+    imports: [
+        HeaderComponent,
+        SearchComponent,
+        FilterComponent,
+        MapComponent,
+        RouterLink,
+        ListComponent,
+        AsyncPipe,
+        FooterComponent,
+        ActivityCardComponent,
+        NavbarComponent,
+        FeedSettingsComponent,
+        MapViewComponent,
+
+    ],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
 })
