@@ -1,11 +1,7 @@
-<app-navbar></app-navbar>
+<app-navbar (searchEvent)="applySearchTerm($event)"></app-navbar>
 <div class="w-full h-full flex-col flex items-center">
-    <app-feed-settings></app-feed-settings>
-        @for(activity of activities; track activity) {
-            <app-activity-card
-                [activity] = "activity"
-            >
-
-            </app-activity-card>
-        }
+    <app-home-filter (filtersEvent)="applyActiveFilters($event)"></app-home-filter>
+    @for (activity of activities$ | async; track activity) {
+        <app-activity-card [activity]="activity"></app-activity-card>
+    }
 </div>
