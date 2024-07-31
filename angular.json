@@ -93,7 +93,9 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "public/icons",
+              "public/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.scss"
