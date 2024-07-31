@@ -3,21 +3,30 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
+:root {
+  --lightBlue: #6bc4f6;
+}
+
+
+body {
+  background-color: rgb(219, 234, 254);
+}
+
 .btn-primary {
-  background-color: #6bc4f6;
-  border-color: #6bc4f6;
+  background-color: var(--lightBlue);
+  border-color: var(--lightBlue);
   color: white;
 
   &:hover {
     opacity: 0.4;
-    background-color: #6bc4f6;
-    border-color: #6bc4f6;
+    background-color: var(--lightBlue);
+    border-color: var(--lightBlue);
     color: black;
   }
 
   &:active {
     opacity: 1;
-    background-color: #6bc4f6 !important;
-    border-color: #6bc4f6 !important;
+    background-color: var(--lightBlue) !important;
+    border-color: var(--lightBlue) !important;
   }
 }
