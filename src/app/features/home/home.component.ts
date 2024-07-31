@@ -1,13 +1,13 @@
-import {Component, OnInit} from "@angular/core";
+import {Component, Inject, InjectionToken, OnInit} from "@angular/core";
 import {HeaderComponent} from "../../components/header/header.component";
 import {SearchComponent} from "../../components/search/search.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {MapComponent} from "../../components/map/map.component";
 import {RouterLink} from "@angular/router";
 import {ListComponent} from "../../components/list/list.component";
-import {AsyncPipe} from "@angular/common";
+import {AsyncPipe, DOCUMENT, ViewportScroller} from "@angular/common";
 import {FooterComponent} from "../../components/footer/footer.component";
-import {BehaviorSubject, combineLatest, map, Observable, switchMap, take} from 'rxjs';
+import {BehaviorSubject, combineLatest, fromEvent, map, Observable, switchMap, take} from 'rxjs';
 import {Activity} from '../../types/activity.interface';
 import {TypesInterface} from '../../types/types.interface';
 import {AirtableService} from '../../services/airtable.service';
@@ -43,8 +43,13 @@ export class HomeComponent implements OnInit {
     filterSubject = new BehaviorSubject<TypesInterface[]>([])
     searchTermSubject = new BehaviorSubject<string>('')
     listView = false;
+    hasBeenScrolled = false;
 
-    constructor(private airtable: AirtableService) {
+    constructor(
+        private airtable: AirtableService,
+        private viewport: ViewportScroller,
+        @Inject(DOCUMENT) private document: Document    
+    ) {
     }
 
     ngOnInit() {
@@ -60,6 +65,7 @@ export class HomeComponent implements OnInit {
                 ))
             ))
         )
+        fromEvent(this.document, 'scroll').subscribe(() => this.hasBeenScrolled = true)
     }
 
     applyActiveFilters(filters: TypesInterface[]) {
@@ -70,5 +76,7 @@ export class HomeComponent implements OnInit {
         this.searchTermSubject.next(searchTerm);
     }
 
-
+    scrollUp(){
+        this.viewport.scrollToPosition([0, 0]);
+    }
 }
