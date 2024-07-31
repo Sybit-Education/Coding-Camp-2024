@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {Injectable} from '@angular/core';
-import {concatMap, forkJoin, from, map, Observable, switchMap} from "rxjs";
+import {forkJoin, from, map, Observable, Subject, switchMap, of} from "rxjs";
 import {Activity} from "../types/activity.interface";
 import {TypesInterface} from "../types/types.interface";
 import {environment} from "../../environments/environment";
@@ -12,44 +12,21 @@ import {HttpClient} from "@angular/common/http";
 })
 export class AirtableService {
 
+    activities: Activity[] = []
+    subjects: Subject<Activity[]>[] = []
+    loaded: boolean = false
+
     constructor(private http: HttpClient) {
+        this.fetchActivities()
     }
 
-    getActivityList(): Observable<Activity[]> {
-        return from(this.getTypeList().pipe(
-            concatMap(types => (
-                    from(this.http.get<Activity[]>(environment.apiUrl + '/activities')).pipe(
-                        map((records: any) => {
-                            return records.map((record: any) => {
-                                return {
-                                    name: record.fields['name'] as string,
-                                    description: record.fields['description'] as string,
-                                    type: types.find((type: any) => type.id === (record.fields?.['type']?.[0])) as TypesInterface,
-                                    street: record.fields['street'] as string,
-                                    number: record.fields['number'] as string,
-                                    zip: record.fields['zip'] as string,
-                                    city: record.fields['city'] as string,
-                                    latitude: record.fields['latitude'] as number,
-                                    longitude: record.fields['longitude'] as number,
-                                    website: record.fields['website'] as string,
-                                    osm_id: record.fields['osm_id'] as string,
-                                    age_restriction: record.fields['age_restriction'] as number,
-                                    barrier_free: record.fields['barrier_free'] as boolean,
-                                } as Activity
-                            }) as Activity[]
-                        })
-                    )
-                )
-            )))
-    }
-
-    getActivitiesByOsmId(osmId: string): Observable<Activity[]> {
-        return forkJoin([
+    private fetchActivities() {
+        forkJoin([
             this.getTypeList(),
             this.getMediaList()
         ]).pipe(
             switchMap(([types, medias]) => {
-                return from(this.http.get<Activity[]>(environment.apiUrl + '/activities/' + osmId)).pipe(
+                return from(this.http.get<Activity[]>(environment.apiUrl + '/activities')).pipe(
                     map((records: any) => {
                         return records.map((record: any) => {
                             return {
@@ -72,7 +49,32 @@ export class AirtableService {
                     })
                 )
             })
-        )
+        ).subscribe({
+            next: (response) => {
+                response.forEach(activity => this.activities.push(activity))
+                this.subjects.forEach(subject => subject.next(response))
+                this.loaded = true;
+            },
+            error: (error) => {
+                console.error(error)
+            }
+        })
+    }
+
+    getActivityList(): Observable<Activity[]> {
+        if (this.loaded) {
+            return of(this.activities)
+        } else {
+            const subject = new Subject<Activity[]>()
+            this.subjects.push(subject)
+            return subject.asObservable();
+        }
+    }
+
+    getActivitiesByOsmId(osmId: string): Observable<Activity[]> {
+        return this.getActivityList().pipe(map(activities => {
+            return Array.from(activities).filter(activity => activity.osm_id == osmId)
+        }))
     }
 
     getTypeList(): Observable<any> {
