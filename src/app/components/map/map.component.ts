@@ -9,7 +9,6 @@ import { Point, Geometry } from 'ol/geom';
 import { Style, Circle, Fill, Stroke } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 import { Router } from '@angular/router';
-import { Activity } from '../../types/activity.interface';
 import { AirtableService } from '../../services/airtable.service';
 import { MapBrowserEvent } from 'ol';
 import {NgStyle} from "@angular/common";
