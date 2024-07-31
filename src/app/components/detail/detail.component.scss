@@ -1,6 +1,26 @@
+
+.text{
+    margin-top: 2%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 5%;
+}
+.headline {
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 2%;
+}
+.minimal-age {
+    font-size: 20px;
+    padding-bottom: 1%;
+}
+.discription {
+    text-align: justify;
+}
 img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 50%;
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 5%;
+    height: auto;
+    width: 70%;
 }
