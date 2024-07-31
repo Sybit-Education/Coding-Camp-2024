@@ -5,18 +5,18 @@ import {RouterLink} from "@angular/router";
 import {Activity} from "../../types/activity.interface";
 
 @Component({
-  selector: 'app-list',
-  standalone: true,
-  imports: [
-    MarkerComponent,
-    RouterLink
-  ],
-  templateUrl: './list.component.html',
-  styleUrl: './list.component.scss'
+    selector: 'app-list',
+    standalone: true,
+    imports: [
+        MarkerComponent,
+        RouterLink
+    ],
+    templateUrl: './list.component.html',
+    styleUrl: './list.component.scss'
 })
 export class ListComponent {
 
-  @Input()
-  activities!: Activity[]
+    @Input()
+    activities!: Activity[]
 
 }
