@@ -6,7 +6,6 @@ import {TypesInterface} from "../types/types.interface";
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 
-
 @Injectable({
     providedIn: "root",
 })
@@ -81,6 +80,7 @@ export class AirtableService {
                         media: medias.find((media: any) => media.id === (record.fields?.['media']?.[0])) as any,
                         age_restriction: record.fields['age_restriction'] as number,
                         barrier_free: record.fields['barrier_free'] as boolean,
+                        maps_link: record.fields['google_maps_link'] as string,
                     } as Activity
                 }) as Activity[]
             }))
