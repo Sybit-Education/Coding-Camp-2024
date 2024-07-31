@@ -3,6 +3,7 @@ import {AirtableService} from "../../services/airtable.service";
 import {AsyncPipe, NgStyle} from "@angular/common";
 import {Activity} from "../../types/activity.interface";
 import {ActivatedRoute, RouterLink} from "@angular/router";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 @Component({
     selector: 'app-detail',
@@ -10,7 +11,8 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
     imports: [
         AsyncPipe,
         RouterLink,
-        NgStyle
+        NgStyle,
+        NavbarComponent
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.scss'
