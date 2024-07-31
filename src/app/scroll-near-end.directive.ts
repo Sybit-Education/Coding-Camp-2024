@@ -30,7 +30,7 @@ export class ScrollNearEndDirective implements OnInit {
   }
 
   @HostListener('window:scroll', ['$event.target'])
-  windowScrollEvent(event: KeyboardEvent) {
+  windowScrollEvent() {
     // height of whole window page
     const heightOfWholePage = this.window.document.documentElement.scrollHeight;
 
