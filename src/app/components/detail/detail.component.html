@@ -25,12 +25,12 @@
     <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
 }
 <div class="buttons">
-        <button type="button" class="btn btn-primary px-3" onclick="history.back()">
+        <button type="button" class="bg-[#6bc4f6] hover:bg-[#1891d7] active:bg-[#6bc4f6] px-3 rounded-full min-h-[100px] max-h-[100px] min-w-[100px] max-w-[100px] text-white" onclick="history.back()">
             <i class="bi bi-arrow-left"></i>
             <p class="button-text">Zurück</p>
         </button>
         @if (activity?.website) {
-        <button type="button" class="btn btn-primary px-3">
+        <button type="button" class="bg-[#6bc4f6] hover:bg-[#1891d7] active:bg-[#6bc4f6] px-3 rounded-full min-h-[100px] max-h-[100px] min-w-[100px] max-w-[100px] text-white">
             <a href="{{activity?.website}}">
                 <i class="bi bi-link-45deg"></i>
                 <p class="button-text">Website</p>
@@ -39,7 +39,7 @@
         }
 
         @if (activity?.maps_link) {
-        <button type="button" class="btn btn-primary px-3">
+        <button type="button" class="bg-[#6bc4f6] hover:bg-[#1891d7] active:bg-[#6bc4f6] px-3 rounded-full min-h-[100px] max-h-[100px] min-w-[100px] max-w-[100px] text-white">
             <a href="{{activity?.maps_link}}">
                 <i class="bi bi-pin-map-fill"></i>
                 <p class="button-text">Google Maps</p>
