@@ -14,6 +14,7 @@ import {AirtableService} from '../../services/airtable.service';
 import {ActivityCardComponent} from "../../components/activity-card/activity-card.component";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {FeedSettingsComponent} from "../../components/feed-settings/feed-settings.component";
+import { ScrollNearEndDirective } from "../../scroll-near-end.directive";
 
 
 
@@ -33,6 +34,7 @@ import {FeedSettingsComponent} from "../../components/feed-settings/feed-setting
 		ActivityCardComponent,
 		NavbarComponent,
 		FeedSettingsComponent,
+        ScrollNearEndDirective
 		
 	],
 	templateUrl: "./home.component.html",
@@ -70,5 +72,7 @@ export class HomeComponent implements OnInit {
         this.searchTermSubject.next(searchTerm);
     }
 
-
+    onNearEndScroll(): void {
+        console.log('TODO: near end scroll');
+    }
 }
