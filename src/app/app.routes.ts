@@ -5,6 +5,7 @@ import {AboutUsComponent} from "./features/about-us/about-us.component";
 
 import {ImprintComponent} from './features/imprint/imprint.component';
 import {PrivacyPolicyComponent} from './features/privacy-policy/privacy-policy.component';
+import {SearchResultComponent} from "./components/search-result/search-result.component";
 
 
 export const routes: Routes = [
@@ -29,5 +30,9 @@ export const routes: Routes = [
         path: 'privacy-policy',
         component: PrivacyPolicyComponent
 
+    },
+    {
+        path: 'search-result',
+        component: SearchResultComponent
     }
 ];
