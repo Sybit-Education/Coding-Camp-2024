@@ -1,4 +1,4 @@
-import {Component, Inject, InjectionToken, OnInit} from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import {HeaderComponent} from "../../components/header/header.component";
 import {SearchComponent} from "../../components/search/search.component";
 import {FilterComponent} from "../../components/filter/filter.component";
@@ -14,9 +14,6 @@ import {AirtableService} from '../../services/airtable.service';
 import {ActivityCardComponent} from "../../components/activity-card/activity-card.component";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {FeedSettingsComponent} from "../../components/feed-settings/feed-settings.component";
-
-
-
 
 @Component({
 	selector: "app-home",
