@@ -14,7 +14,7 @@ export class AirtableService {
 
     activities: Activity[] = []
     subjects: Subject<Activity[]>[] = []
-    loaded: boolean = false
+    loaded = false
 
     constructor(private http: HttpClient) {
         this.fetchActivities()
