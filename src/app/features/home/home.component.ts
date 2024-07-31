@@ -15,25 +15,26 @@ import {ActivityCardComponent} from "../../components/activity-card/activity-car
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {FeedSettingsComponent} from "../../components/feed-settings/feed-settings.component";
 import {MapViewComponent} from "../map-view/map-view.component";
+import { ScrollNearEndDirective } from "../../scroll-near-end.directive";
 
 @Component({
 	selector: "app-home",
 	standalone: true,
-    imports: [
-        HeaderComponent,
-        SearchComponent,
-        FilterComponent,
-        MapComponent,
-        RouterLink,
-        ListComponent,
-        AsyncPipe,
-        FooterComponent,
-        ActivityCardComponent,
-        NavbarComponent,
-        FeedSettingsComponent,
-        MapViewComponent,
-
-    ],
+	imports: [
+		HeaderComponent,
+		SearchComponent,
+		FilterComponent,
+		MapComponent,
+		RouterLink,
+		ListComponent,
+		AsyncPipe,
+		FooterComponent,
+		ActivityCardComponent,
+		NavbarComponent,
+		FeedSettingsComponent,
+    ScrollNearEndDirective
+		
+	],
 	templateUrl: "./home.component.html",
 	styleUrl: "./home.component.scss",
 })
@@ -75,7 +76,11 @@ export class HomeComponent implements OnInit {
         this.searchTermSubject.next(searchTerm);
     }
 
-    scrollUp(){
+    scrollUp() {
         this.viewport.scrollToPosition([0, 0]);
     }
+
+    onNearEndScroll(): void {
+        console.log('TODO: near end scroll');
+    }    
 }

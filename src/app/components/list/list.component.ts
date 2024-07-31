@@ -1,5 +1,4 @@
 import {Component, Input} from '@angular/core';
-
 import {MarkerComponent} from "../marker/marker.component";
 import {RouterLink} from "@angular/router";
 import {Activity} from "../../types/activity.interface";
@@ -9,7 +8,7 @@ import {Activity} from "../../types/activity.interface";
     standalone: true,
     imports: [
         MarkerComponent,
-        RouterLink
+        RouterLink,
     ],
     templateUrl: './list.component.html',
     styleUrl: './list.component.scss'
