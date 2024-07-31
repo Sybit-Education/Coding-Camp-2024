@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { GetLuckyComponent } from "../get-lucky/get-lucky.component";
 import { Router, RouterLink, RouterModule } from "@angular/router";
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import { NgIf, NgOptimizedImage } from "@angular/common";
 
 @Component({
     selector: 'app-navbar',
@@ -32,5 +32,11 @@ export class NavbarComponent {
 
     onSearch() {
         this.searchEvent.emit(this.searchTerm);
+    }
+
+    onEnterKey(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            this.router.navigate(['/search-result'], { queryParams: { q: this.searchTerm } });
+        }
     }
 }
