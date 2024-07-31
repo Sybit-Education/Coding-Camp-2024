@@ -1,13 +1,28 @@
 <app-navbar (searchEvent)="applySearchTerm($event)"></app-navbar>
 
-<div class="w-full h-full flex-col flex items-center">
-                <app-home-filter (filtersEvent)="applyActiveFilters($event)"></app-home-filter>
-        @for(activity of activities$ | async; track activity) {
-            <app-activity-card
-                [activity] = "activity"
-            >
 
-            </app-activity-card>
+<div>
+        <button type="button" class="btn" (click)="listView = !listView">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+        </svg>
+          </button>
+          <app-home-filter (filtersEvent)="applyActiveFilters($event)"></app-home-filter>
+    @if (activities$ | async; as activities) {
+      @if (listView) {
+        <div class="w-full h-full flex-col flex items-center">
+            @for(activity of activities$ | async; track activity) {
+                    <app-activity-card
+                        [activity] = "activity"
+                    >
         
-        }
-</div>
+                    </app-activity-card>
+                
+                }
+        </div>
+      } @else {
+        <app-map></app-map>
+      }
+    }
+  </div>
