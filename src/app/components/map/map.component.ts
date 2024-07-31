@@ -75,7 +75,7 @@ export class MapComponent implements OnInit {
       this.map.on('pointermove', this.handlePointerMove.bind(this));
     });
   }
-
+  // eslint-disable-next-line @typescript/ban-ts-comment
   handleMapClick(event: MapBrowserEvent<any>) {
     this.map.forEachFeatureAtPixel(event.pixel, (feature) => {
       const activity = (feature as Feature<Geometry>).get('activity');
@@ -85,6 +85,7 @@ export class MapComponent implements OnInit {
     });
   }
 
+  // eslint-disable-next-line @typescript/ban-ts-comment
   handlePointerMove(event: MapBrowserEvent<any>) {
     const pixel = this.map.getEventPixel(event.originalEvent);
     let featureFound = false;
