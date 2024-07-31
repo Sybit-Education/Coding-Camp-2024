@@ -49,12 +49,13 @@ export class MapComponent implements OnInit {
         });
 
         const borderSize = this.getBookmarked(activity.osm_id) ? 10.0 : 0.75
+        const color = this.getBookmarked(activity.osm_id) ? "gold" : "black"
 
         feature.setStyle(new Style({
           image: new Circle({
             radius: 8,
             fill: new Fill({ color: activity.type.color }),
-            stroke: new Stroke({ color: 'black', width: borderSize })
+            stroke: new Stroke({ color: color, width: borderSize })
           })
         }));
 
