@@ -8,5 +8,7 @@ import {Component} from '@angular/core';
     styleUrl: './about-us.component.scss'
 })
 export class AboutUsComponent {
+assets: any;
+logo: any;
 
 }
