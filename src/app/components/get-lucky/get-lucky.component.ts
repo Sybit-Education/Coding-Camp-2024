@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 })
 export class GetLuckyComponent {
 
-  constructor(private airtable: AirtableService, private router: Router) {}
+  constructor(private airtable: AirtableService, private router: Router) { }
 
   navigateToRandomActivity(): void {
     this.airtable.getActivityList().subscribe({
@@ -20,17 +20,8 @@ export class GetLuckyComponent {
           const randomIndex = Math.floor(Math.random() * activites.length);
           const randomId = activites[randomIndex].osm_id;
           this.router.navigate(['/activity-details', randomId]);
-        } else {
-          console.error('Keine IDs gefunden.')
         }
-      },
-      error: (err) => {
-        console.error(err)
       }
-    }
-
-    )
+    })
   }
-
-
 }

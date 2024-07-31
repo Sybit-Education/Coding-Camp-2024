@@ -5,8 +5,8 @@ import {FormsModule} from "@angular/forms";
     selector: 'app-home-search',
     standalone: true,
     imports: [
-        FormsModule,
-    ],
+    FormsModule,
+],
     templateUrl: './search.component.html',
     styleUrl: './search.component.scss'
 })
