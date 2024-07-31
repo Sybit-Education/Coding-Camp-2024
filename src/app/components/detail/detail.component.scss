@@ -9,12 +9,21 @@
     font-weight: bold;
     padding-bottom: 2%;
 }
+.barrier_free{
+    text-align: left;
+    display: flex;
+    vertical-align: baseline;
+}
 .minimal-age {
     font-size: 20px;
     padding-bottom: 1%;
 }
 .discription {
     text-align: justify;
+}
+.barrier_free_text {
+    font-size: 17px;
+    padding-bottom: 1%;
 }
 img {
     margin-left: 15%;
