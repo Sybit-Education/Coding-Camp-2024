@@ -19,23 +19,24 @@ import {FeedSettingsComponent} from "../../components/feed-settings/feed-setting
 
 
 @Component({
-    selector: "app-home",
-    standalone: true,
-    imports: [
-        HeaderComponent,
-        SearchComponent,
-        FilterComponent,
-        MapComponent,
-        RouterLink,
-        ListComponent,
-        AsyncPipe,
-        FooterComponent,
-        ActivityCardComponent,
-        NavbarComponent,
-        FeedSettingsComponent,
-    ],
-    templateUrl: "./home.component.html",
-    styleUrl: "./home.component.scss",
+	selector: "app-home",
+	standalone: true,
+	imports: [
+		HeaderComponent,
+		SearchComponent,
+		FilterComponent,
+		MapComponent,
+		RouterLink,
+		ListComponent,
+		AsyncPipe,
+		FooterComponent,
+		ActivityCardComponent,
+		NavbarComponent,
+		FeedSettingsComponent,
+		
+	],
+	templateUrl: "./home.component.html",
+	styleUrl: "./home.component.scss",
 })
 export class HomeComponent implements OnInit {
     activities$!: Observable<Activity[]>
