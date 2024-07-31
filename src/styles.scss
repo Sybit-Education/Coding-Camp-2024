@@ -3,21 +3,42 @@
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
+:root {
+  --lightBlue: #6bc4f6;
+}
+
+
+body {
+  background-color: rgb(219, 234, 254);
+}
+
 .btn-primary {
-  background-color: #6bc4f6;
-  border-color: #6bc4f6;
+  background-color: var(--lightBlue);
+  border-color: var(--lightBlue);
   color: white;
 
   &:hover {
     opacity: 0.4;
-    background-color: #6bc4f6;
-    border-color: #6bc4f6;
+    background-color: var(--lightBlue);
+    border-color: var(--lightBlue);
     color: black;
   }
 
   &:active {
     opacity: 1;
-    background-color: #6bc4f6 !important;
-    border-color: #6bc4f6 !important;
+    background-color: var(--lightBlue) !important;
+    border-color: var(--lightBlue) !important;
   }
+}
+
+.btn {
+  @apply rounded-md bg-[#6bc4f6] text-white hover:bg-blue-400 hover:text-white m-1 text-lg cursor-pointer select-none flex flex-col justify-center items-center;
+}
+
+.btn-danger {
+  @apply rounded-md bg-red-500 text-white hover:bg-red-600 hover:text-white m-1 text-lg cursor-pointer select-none flex flex-col justify-center items-center;
+}
+
+.btn-primary {
+  @apply rounded-md bg-gray-500 text-white hover:bg-gray-600 hover:text-white m-1 text-lg cursor-pointer select-none flex flex-col justify-center items-center;
 }

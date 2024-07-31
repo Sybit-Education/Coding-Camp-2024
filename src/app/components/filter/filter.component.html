@@ -11,11 +11,13 @@
                 <h1 class="modal-title text-center fs-5" id="exampleModalLabel">Filter</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body flex flex-row flex-wrap gap-1">
                 @for (type of types$ | async; track $index) {
-                    <button type="button" class="btn btn-sm tag" data-bs-toggle="button"
+                    @if(type.name) {
+                        <button type="button" class="btn" data-bs-toggle="button"
                             (click)="onFilter(type)">{{ type.name }}
                     </button>
+                    }
                 }
             </div>
             <div class="modal-footer justify-content-between">
