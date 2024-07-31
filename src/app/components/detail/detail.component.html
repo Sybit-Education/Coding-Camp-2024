@@ -32,24 +32,24 @@
     <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
 }
 <div class="buttons">
-        <button type="button" class="btn btn-primary px-3" onclick="history.back()">
+        <button type="button" class="btn" onclick="history.back()">
             <i class="bi bi-arrow-left"></i>
-            <p class="button-text">Zurück</p>
+            <p>Zurück</p>
         </button>
         @if (activity?.website) {
-        <button type="button" class="btn btn-primary px-3">
+        <button type="button" class="btn">
             <a href="{{activity?.website}}">
                 <i class="bi bi-link-45deg"></i>
-                <p class="button-text">Website</p>
+                <p>Website</p>
             </a>
         </button>
         }
 
         @if (activity?.maps_link) {
-        <button type="button" class="btn btn-primary px-3">
+        <button type="button" class="btn">
             <a href="{{activity?.maps_link}}">
                 <i class="bi bi-pin-map-fill"></i>
-                <p class="button-text">Google Maps</p>
+                <p>Maps</p>
             </a>
         </button>
         }
