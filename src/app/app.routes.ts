@@ -5,12 +5,13 @@ import {AboutUsComponent} from "./features/about-us/about-us.component";
 
 import {ImprintComponent} from './features/imprint/imprint.component';
 import {PrivacyPolicyComponent} from './features/privacy-policy/privacy-policy.component';
+import { ForYouPageComponent } from './components/for-you-page/for-you-page.component';
 
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: ForYouPageComponent
     },
     {
         path: 'activity-details/:osm_id',
@@ -29,5 +30,5 @@ export const routes: Routes = [
         path: 'privacy-policy',
         component: PrivacyPolicyComponent
 
-    }
+    },
 ];
