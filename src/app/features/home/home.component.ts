@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {HeaderComponent} from "../../components/header/header.component";
 import {SearchComponent} from "../../components/search/search.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {MapComponent} from "../../components/map/map.component";
@@ -20,7 +19,7 @@ import {MapViewComponent} from "../map-view/map-view.component";
 @Component({
     selector: "app-home",
     standalone: true,
-    imports: [HeaderComponent, SearchComponent, FilterComponent, MapComponent, RouterLink, ListComponent, AsyncPipe, FooterComponent, ActivityCardComponent, NavbarComponent, FeedSettingsComponent, ScrollNearEndDirective, MapViewComponent],
+    imports: [ SearchComponent, FilterComponent, MapComponent, RouterLink, ListComponent, AsyncPipe, FooterComponent, ActivityCardComponent, NavbarComponent, FeedSettingsComponent, ScrollNearEndDirective, MapViewComponent],
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.scss",
 })
