@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Activity } from '../../types/activity.interface';
 import { AirtableService } from '../../services/airtable.service';
 import { ActivityCardComponent } from '../activity-card/activity-card.component';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-for-you-page',
   standalone: true,
   imports: [
-    ActivityCardComponent
+    ActivityCardComponent,
+    NgIf
   ],
   templateUrl: './for-you-page.component.html',
   styleUrl: './for-you-page.component.scss'
@@ -15,6 +17,8 @@ import { ActivityCardComponent } from '../activity-card/activity-card.component'
 export class ForYouPageComponent implements OnInit{
   shuffledActivities: Activity[] = [];
   allActivities: Activity[] = [];
+  isLoading = true;
+  activities: Activity[] = [];
 
   constructor(private airtable: AirtableService){}
 
@@ -22,6 +26,8 @@ export class ForYouPageComponent implements OnInit{
     this.airtable.getActivityList().subscribe(
       {
         next: activities => {
+          this.activities = this.shuffle(activities);
+          this.isLoading = false;
           this.allActivities = activities;
           this.shuffledActivities = this.shuffle(this.allActivities, 3);
         }

@@ -40,31 +40,9 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.vectorSource = new VectorSource();
-
-    this.airtableService.getActivityList().subscribe(activities => {
-      activities.forEach(activity => {
-        const feature = new Feature({
-          geometry: new Point(fromLonLat([activity.longitude, activity.latitude])),
-          activity: activity
-        });
-
-        const borderSize = this.getBookmarked(activity.osm_id) ? 10.0 : 0.75
-        const color = this.getBookmarked(activity.osm_id) ? "gold" : "black"
-
-        feature.setStyle(new Style({
-          image: new Circle({
-            radius: 8,
-            fill: new Fill({ color: activity.type.color }),
-            stroke: new Stroke({ color: color, width: borderSize })
-          })
-        }));
-
-        this.vectorSource.addFeature(feature);
-      });
-
-      const vectorLayer = new VectorLayer({
-        source: this.vectorSource
-      });
+    const vectorLayer = new VectorLayer({
+      source: this.vectorSource
+    });
 
       this.map = new Map({
         target: 'map',
@@ -82,9 +60,32 @@ export class MapComponent implements OnInit {
         })
       });
 
-      this.map.on('click', this.handleMapClick.bind(this));
-      this.map.on('pointermove', this.handlePointerMove.bind(this));
+    this.map.on('click', this.handleMapClick.bind(this));
+    this.map.on('pointermove', this.handlePointerMove.bind(this));    
+
+    this.airtableService.getActivityList().subscribe(activities => {
+      activities.forEach(activity => {
+        const feature = new Feature({
+          geometry: new Point(fromLonLat([activity.longitude, activity.latitude])),
+          activity: activity
+        });
+
+        const local = this.getBookmarked(activity.osm_id);
+        const borderSize = local ? 10.0 : 0.75
+        const color = local ? "gold" : "black"
+
+        feature.setStyle(new Style({
+          image: new Circle({
+            radius: 8,
+            fill: new Fill({ color: activity.type.color }),
+            stroke: new Stroke({ color: color, width: borderSize })
+          })
+        }));
+
+        this.vectorSource.addFeature(feature);
+      });
     });
+
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleMapClick(event: MapBrowserEvent<any>) {
