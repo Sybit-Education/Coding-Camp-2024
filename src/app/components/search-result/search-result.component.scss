@@ -1,0 +1,8 @@
+.activity-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin: 0 auto;
+}
