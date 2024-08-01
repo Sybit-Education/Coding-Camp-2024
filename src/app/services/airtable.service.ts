@@ -42,6 +42,7 @@ export class AirtableService {
                     id: record["id"] as string,
                     name: record.fields["name"] as string,
                     color: record.fields["color"] as string,
+                    svg: record.fields["svg"] as string,
                 };
             });
         }),);

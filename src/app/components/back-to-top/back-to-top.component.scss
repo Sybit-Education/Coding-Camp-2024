@@ -2,5 +2,12 @@
   position: fixed;
   right: 20px;
   bottom: 20px;
-  display: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease-in-out, bottom 0.3s ease-in-out;
+}
+
+#scroll-up-button.show {
+  opacity: 1;
+  visibility: visible;
 }
