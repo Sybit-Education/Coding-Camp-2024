@@ -1,6 +1,6 @@
 <div class="text">
     <div class="headline">
-        {{ activity?.name }}
+        {{ activity?.name || "Es wurde kein Name gefunden." }}
     </div>
     @if (activity?.age_restriction) {
     <div class="minimal-age">
@@ -21,13 +21,13 @@
     </div>
    
     @if (activity?.description){
-    <div class="discription">
-    {{ activity?.description }}
+    <div class="description">
+    {{ activity?.description || "Es wurde keine Beschreibung gefunden." }}
     </div>
     }
 </div>
 @if (activity?.media) {
-    <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
+    <img class="rounded-xl" [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
 }
 <div class="buttons">
         <button type="button" class="btn" onclick="history.back()">
