@@ -5,7 +5,7 @@
   margin-bottom: 8px;
 
   &:active {
-    background-color: #6bc4f6;
+    background-color: #0080cb;
 
   }
 }
@@ -13,4 +13,12 @@
 .active {
   background-color: #6bc4f6;
   color: white;
+}
+.position {
+  margin-right: 20px;
+  margin-top: 5px
+}
+
+.modal-backdrop {
+  z-index: -1;
 }

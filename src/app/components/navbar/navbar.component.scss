@@ -12,3 +12,9 @@
         @apply block;
     }
 }
+
+::ng-deep app-home-filter.modalOpened {
+    .mat-tab-body-active {
+        z-index: auto !important;
+    }
+}

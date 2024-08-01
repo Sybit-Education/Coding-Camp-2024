@@ -7,3 +7,9 @@ app-footer {
     flex-direction: column;
     justify-content: space-between;
 }
+
+::ng-deep app-home-filter.modalOpened {
+    .mat-tab-body-active {
+        z-index: auto !important;
+    }
+}
