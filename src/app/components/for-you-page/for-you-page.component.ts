@@ -26,7 +26,6 @@ export class ForYouPageComponent implements OnInit{
     this.airtable.getActivityList().subscribe(
       {
         next: activities => {
-          this.activities = this.shuffle(activities);
           this.isLoading = false;
           this.allActivities = activities;
           this.shuffledActivities = this.shuffle(this.allActivities, 3);

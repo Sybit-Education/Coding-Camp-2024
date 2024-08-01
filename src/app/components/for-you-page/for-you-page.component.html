@@ -1,28 +1,22 @@
 <div class="items-center">
     <h1 class="text-center mt-2 text-2xl font-bold">Für dich vorgeschlagene Aktivitäten:</h1>
 </div>
-<div class="flex flex-wrap gap-2 w-full justify-center items-center mt-2 mb-2">
-	@for(activity of shuffeledActivities; track activity.osm_id) {
-	<app-activity-card [activity]="activity"></app-activity-card>
-	}
-</div>
-<div class="flex justify-center items-center mt-2 mb-2">
-    <button type="button" class="btn btn-margin" (click)="doReshuffle()">
-		<i class="bi bi-shuffle"></i>
-		Neue Vorschläge
-	</button>
-<div *ngIf="isLoading" class="d-flex justify-content-center align-items-center" style="height: 80vh;">
-	<div class="spinner-border" role="status">
-	  <span class="sr-only">Loading...</span>
-	</div>
-</div>
-<div *ngIf="!isLoading">
-	<div class="flex flex-wrap gap-2 w-full justify-center items-center mt-2 mb-2">
-		@for(activity of activities; track activity) {
-		<app-activity-card [activity]="activity"></app-activity-card>
-		}
-	</div>
-	<div class="flex justify-center items-center mt-2 mb-2">
-		<button type="button" class="btn btn-margin" (click)="ngOnInit()">Neue Vorschläge</button>
-	</div>
-</div>
+@if (!isLoading) {
+    <div class="flex flex-wrap gap-2 w-full justify-center items-center mt-2 mb-2">
+        @for(activity of shuffledActivities; track activity.osm_id) {
+        <app-activity-card [activity]="activity"></app-activity-card>
+        }
+        <div class="flex justify-center items-center mt-2 mb-2">
+            <button type="button" class="btn btn-margin" (click)="doReshuffle()">
+                <i class="bi bi-shuffle"></i>
+                Neue Vorschläge
+            </button>
+        </div>
+    </div>
+    } @else {
+        <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    }
