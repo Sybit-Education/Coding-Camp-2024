@@ -4,7 +4,7 @@ export interface Activity {
     name: string;
     description?: string;
     type: TypesInterface;
-    osm_id: string;
+    osm_id: number;
     street: string;
     number?: string;
     zip: string;
