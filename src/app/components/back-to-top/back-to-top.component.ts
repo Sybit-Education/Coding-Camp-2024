@@ -69,11 +69,13 @@ export class BackToTopComponent implements OnInit, OnDestroy {
 
   private showButton() {
     const buttonElement = this.elRef.nativeElement.querySelector('#scroll-up-button');
-    this.renderer.setStyle(buttonElement, 'display', 'block');
+    this.renderer.setStyle(buttonElement, 'opacity', '1');
+    this.renderer.setStyle(buttonElement, 'visibility', 'visible');
   }
 
   private hideButton() {
     const buttonElement = this.elRef.nativeElement.querySelector('#scroll-up-button');
-    this.renderer.setStyle(buttonElement, 'display', 'none');
+    this.renderer.setStyle(buttonElement, 'opacity', '0');
+    this.renderer.setStyle(buttonElement, 'visibility', 'hidden');
   }
 }
