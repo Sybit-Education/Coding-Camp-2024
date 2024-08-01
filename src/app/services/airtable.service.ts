@@ -73,6 +73,7 @@ export class AirtableService {
                         number: record.fields['number'] as string,
                         zip: record.fields['zip'] as string,
                         city: record.fields['city'] as string,
+                        country: record.fields['country'] as string,
                         latitude: record.fields['latitude'] as number,
                         longitude: record.fields['longitude'] as number,
                         website: record.fields['website'] as string,
