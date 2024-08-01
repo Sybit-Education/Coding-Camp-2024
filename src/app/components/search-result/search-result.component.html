@@ -1,5 +1,5 @@
 <div class="center">
-    <p class="lead">Suchergebnisse für: "{{ searchTerm }}"</p>
+    <p class="lead w-full text-center font-bold mt-2">Suchergebnisse für: "{{ searchTerm }}"</p>
     <br>
     <div>
         <ng-container [ngSwitch]="hasResults">
@@ -14,7 +14,7 @@
 
             </ng-container>
             <ng-container *ngSwitchDefault>
-                <p>Keine Aktivitäten gefunden.</p>
+                <p class="w-full text-center">Keine Aktivitäten gefunden.</p>
             </ng-container>
         </ng-container>
     </div>

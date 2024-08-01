@@ -1,8 +1,6 @@
-<app-navbar></app-navbar>
-
 <div class="text">
     <div class="headline">
-        {{ activity?.name }}
+        {{ activity?.name || "Es wurde kein Name gefunden." }}
     </div>
     <div class="adresse">
         <p>{{activity?.number}}. {{activity?.street}} {{activity?.zip}} {{activity?.city}}</p>
@@ -27,13 +25,13 @@
    
     @if (activity?.description){
     <div class="discription">
-        {{ activity?.description }}
+    {{ activity?.description }}
     </div>
     }
 </div>
 
 @if (activity?.media) {
-    <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
+    <img class="rounded-xl" [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
 }
 <div class="buttons">
         <button type="button" class="btn" onclick="history.back()">
