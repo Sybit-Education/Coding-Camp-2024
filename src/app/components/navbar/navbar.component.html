@@ -12,11 +12,12 @@
                 spellcheck="false"
                 placeholder="Suche..."
                 [(ngModel)]="searchTerm"
+                class="text-base w-full flex outline-none bg-transparent pr-5 border-none"
                 (input)="onSearch()"
                 (keydown)="onEnterKey($event)"
         />
+        <app-home-filter></app-home-filter>
     </div>
-    <app-home-filter></app-home-filter>
     @if (isRootUrl) {
     <button routerLink="/map" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
     } @else {
