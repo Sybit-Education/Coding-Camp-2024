@@ -77,8 +77,8 @@ export class MapComponent implements OnInit {
         view: new View({
           center: fromLonLat([8.970869314606485, 47.73981783654207]),
           zoom: 3,
-          minZoom: 10,
-          maxZoom: 20
+          minZoom: 12,
+          maxZoom: 25
         })
       });
 
