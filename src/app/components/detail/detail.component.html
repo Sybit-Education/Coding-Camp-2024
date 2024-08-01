@@ -4,6 +4,9 @@
     <div class="headline">
         {{ activity?.name }}
     </div>
+    <div class="adresse">
+        <p>{{activity?.number}}. {{activity?.street}} {{activity?.zip}} {{activity?.city}}</p>
+    </div>
     @if (activity?.age_restriction) {
     <div class="minimal-age">
         Altersempfehlung: {{ activity?.age_restriction }} Jahre
@@ -28,25 +31,6 @@
     </div>
     }
 </div>
-@if (activity?.longitude){
-    <div class="longitude">
-        {{activity?.longitude}}
-    </div>
-}
-
-@if (activity?.latitude){
-    <div class="latitude">
-        {{activity?.latitude}}
-    </div>
-}
-
-
-
-
-
-
-
-
 
 @if (activity?.media) {
     <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
