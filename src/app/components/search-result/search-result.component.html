@@ -1,17 +1,20 @@
 <div class="center">
-    <h2>Search Results for "{{ searchTerm }}"</h2>
+    <p class="lead">Suchergebnisse für: "{{ searchTerm }}"</p>
     <br>
     <div>
         <ng-container [ngSwitch]="hasResults">
             <ng-container *ngSwitchCase="true">
-                @for (activity of activities; track activity) {
-                    <div class="activity-card">
-                        <app-activity-card [activity]="activity"></app-activity-card>
-                    </div>
-                }
+                <div class="activity-card-container">
+                    @for (activity of activities; track activity) {
+                        <div class="activity-card">
+                            <app-activity-card [activity]="activity"></app-activity-card>
+                        </div>
+                    }
+                </div>
+
             </ng-container>
             <ng-container *ngSwitchDefault>
-                <p>No activities found matching your search.</p>
+                <p>Keine Aktivitäten gefunden.</p>
             </ng-container>
         </ng-container>
     </div>
