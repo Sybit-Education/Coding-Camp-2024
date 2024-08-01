@@ -1,9 +1,9 @@
 <div class="text p-4 bg-gray-100 rounded-lg shadow-md">
     <div class="headline text-2xl font-bold text-gray-800">
-        {{ activity?.name }}
+        {{ activity?.name }} | {{ activity?.type?.name }}
     </div>
     <div class="adresse mt-2 text-gray-600">
-        <p>{{activity?.street}} {{activity?.number}}, {{activity?.zip}} {{activity?.city}}</p>
+        <p>{{activity?.street}} {{activity?.number}}, {{activity?.zip}} {{activity?.city}} {{activity?.country}}</p>
     </div>
     @if (activity?.age_restriction) {
         <div class="minimal-age mt-2 text-red-500">
