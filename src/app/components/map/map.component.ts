@@ -40,6 +40,28 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.vectorSource = new VectorSource();
+    const vectorLayer = new VectorLayer({
+      source: this.vectorSource
+    });
+
+    this.map = new Map({
+      target: 'map',
+      layers: [
+        new TileLayer({
+          source: new OSM()
+        }),
+        vectorLayer
+      ],
+      view: new View({
+        center: fromLonLat([8.970869314606485, 47.73981783654207]),
+        zoom: 3,
+        minZoom: 10,
+        maxZoom: 20
+      })
+    });
+
+    this.map.on('click', this.handleMapClick.bind(this));
+    this.map.on('pointermove', this.handlePointerMove.bind(this));    
 
     this.airtableService.getActivityList().subscribe(activities => {
       activities.forEach(activity => {
@@ -48,8 +70,9 @@ export class MapComponent implements OnInit {
           activity: activity
         });
 
-        const borderSize = this.getBookmarked(activity.osm_id) ? 10.0 : 0.75
-        const color = this.getBookmarked(activity.osm_id) ? "gold" : "black"
+        const local = this.getBookmarked(activity.osm_id);
+        const borderSize = local ? 10.0 : 0.75
+        const color = local ? "gold" : "black"
 
         feature.setStyle(new Style({
           image: new Circle({
@@ -61,30 +84,8 @@ export class MapComponent implements OnInit {
 
         this.vectorSource.addFeature(feature);
       });
-
-      const vectorLayer = new VectorLayer({
-        source: this.vectorSource
-      });
-
-      this.map = new Map({
-        target: 'map',
-        layers: [
-          new TileLayer({
-            source: new OSM()
-          }),
-          vectorLayer
-        ],
-        view: new View({
-          center: fromLonLat([8.970869314606485, 47.73981783654207]),
-          zoom: 3,
-          minZoom: 10,
-          maxZoom: 20
-        })
-      });
-
-      this.map.on('click', this.handleMapClick.bind(this));
-      this.map.on('pointermove', this.handlePointerMove.bind(this));
     });
+
   }
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleMapClick(event: MapBrowserEvent<any>) {
