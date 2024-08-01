@@ -6,12 +6,12 @@
         @for(activity of shuffledActivities; track activity.osm_id) {
         <app-activity-card [activity]="activity"></app-activity-card>
         }
-        <div class="flex justify-center items-center mt-2 mb-2">
-            <button type="button" class="btn btn-margin" (click)="doReshuffle()">
-                <i class="bi bi-shuffle"></i>
-                Neue Vorschläge
-            </button>
-        </div>
+    </div>
+    <div class="flex justify-center items-center mt-2 mb-2">
+        <button type="button" class="btn btn-margin" (click)="doReshuffle()">
+            <i class="bi bi-shuffle"></i>
+            Neue Vorschläge
+        </button>
     </div>
     } @else {
         <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
