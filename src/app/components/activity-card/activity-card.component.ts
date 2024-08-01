@@ -10,7 +10,7 @@ import { RouterLink } from "@angular/router";
 	styleUrl: "./activity-card.component.scss",
 })
 export class ActivityCardComponent implements OnInit {
-	image = "assets/images/logo.png";
+	image = "/images/logo.png";
 
 	@Input() activity: Activity | null = null;
 
@@ -22,7 +22,7 @@ export class ActivityCardComponent implements OnInit {
 
 	onBookmark(osm_id: string | null | undefined) {
 	  this.isBookmarked = !this.isBookmarked
-	  const item = sessionStorage.getItem("savedLocations")
+	  const item = localStorage.getItem("savedLocations")
     if (item) {
       const savedLocations = JSON.parse(item)
       if (this.isBookmarked) {
@@ -31,15 +31,15 @@ export class ActivityCardComponent implements OnInit {
         const index = savedLocations.indexOf(osm_id)
         savedLocations.splice(index, 1)
       }
-      sessionStorage.setItem("savedLocations", JSON.stringify(savedLocations))
+      localStorage.setItem("savedLocations", JSON.stringify(savedLocations))
     } else {
-      sessionStorage.setItem("savedLocations", JSON.stringify([osm_id]))
+      localStorage.setItem("savedLocations", JSON.stringify([osm_id]))
     }
 
 	}
 
   getBookmarked(osm_id: string | null | undefined) {
-    const item = sessionStorage.getItem("savedLocations")
+    const item = localStorage.getItem("savedLocations")
     if(item) {
       const savedLocations = JSON.parse(item)
       this.isBookmarked = savedLocations.includes(osm_id)
