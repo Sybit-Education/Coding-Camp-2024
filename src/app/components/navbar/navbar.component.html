@@ -17,7 +17,11 @@
                 (keydown)="onEnterKey($event)"
         />
     </div>
+    @if (isRootUrl) {
     <button routerLink="/map" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
+    } @else {
+    <button routerLink="/" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
+    }
     <button routerLink="/favorites" class="btn hide-on-mobile rounded-full"><i class="bi bi-bookmark"></i></button>
     @if(isHamburgerMenuActive) {
         <button type="button" (click)="showHamburgerMenu()" class="btn border-none text-white show-on-mobile hover:bg-[#6bc4f6]">
