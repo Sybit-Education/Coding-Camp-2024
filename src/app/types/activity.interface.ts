@@ -9,6 +9,7 @@ export interface Activity {
     number?: string;
     zip: string;
     city: string;
+    country: string;
     latitude: number;
     longitude: number;
     website?: string;

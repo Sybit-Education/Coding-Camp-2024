@@ -1,13 +1,13 @@
 <div class="text p-4 bg-gray-100 rounded-lg shadow-md">
     <div class="headline text-2xl font-bold text-gray-800">
-        {{ activity?.name }}
+        {{ activity?.name }} | {{ activity?.type?.name }}
     </div>
     <div class="adresse mt-2 text-gray-600">
         <p>
             @if(activity?.number && activity?.street) {
                 <span>{{activity?.street}} {{activity?.number}}</span>,
             }
-            {{activity?.zip}} {{activity?.city}}</p>
+            {{activity?.zip}} {{activity?.city}} {{activity?.country}}</p>
     </div>
     @if (activity?.age_restriction) {
         <div class="minimal-age mt-2 text-red-500">
@@ -41,9 +41,11 @@
     </div>
 }
 <div class="buttons mt-6 flex gap-4">
-    <button type="button" class="btn" onclick="history.back()">
-        <i class="bi bi-arrow-left"></i>
-        <p class="ml-2">Zurück</p>
+    <button type="button" class="btn">
+        <a class="flex items-center" onclick="history.back()">
+            <i class="bi bi-arrow-left"></i>
+            <p class="ml-2">Zurück</p>
+        </a>
     </button>
     @if (activity?.website) {
         <button type="button" class="btn">
