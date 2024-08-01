@@ -1,0 +1,10 @@
+<div class="cards">
+    @for(activity of activities; track activity) {
+        <app-activity-card
+            [activity]="activity"
+        ></app-activity-card>
+    }
+</div>
+<div class="cards">
+    <button type="button" class="btn-primary btn-margin" (click)="ngOnInit()">Neue Generieren</button>
+</div>
