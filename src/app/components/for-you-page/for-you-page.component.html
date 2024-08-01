@@ -2,10 +2,13 @@
     <h1 class="text-center mt-2 text-2xl font-bold">Für dich vorgeschlagene Aktivitäten:</h1>
 </div>
 <div class="flex flex-wrap gap-2 w-full justify-center items-center mt-2 mb-2">
-	@for(activity of activities; track activity) {
+	@for(activity of shuffeledActivities; track activity.osm_id) {
 	<app-activity-card [activity]="activity"></app-activity-card>
 	}
 </div>
 <div class="flex justify-center items-center mt-2 mb-2">
-    <button type="button" class="btn btn-margin" (click)="ngOnInit()">Neue Vorschläge</button>
+    <button type="button" class="btn btn-margin" (click)="doReshuffle()">
+		<i class="bi bi-shuffle"></i>
+		Neue Vorschläge
+	</button>
 </div>

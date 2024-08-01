@@ -13,7 +13,8 @@ import { ActivityCardComponent } from '../activity-card/activity-card.component'
   styleUrl: './for-you-page.component.scss'
 })
 export class ForYouPageComponent implements OnInit{
-  activities: Activity[] = [];
+  shuffeledActivities: Activity[] = [];
+  allActivities: Activity[] = [];
 
   constructor(private airtable: AirtableService){
 
@@ -23,7 +24,8 @@ export class ForYouPageComponent implements OnInit{
     this.airtable.getActivityList().subscribe(
       {
         next: activities => {
-          this.activities = this.shuffle(activities);
+          this.allActivities = activities;
+          this.shuffeledActivities = this.shuffle(activities);
         }
       }
     )
@@ -38,5 +40,9 @@ export class ForYouPageComponent implements OnInit{
         activities[randomIndex], activities[currentIndex]];
     }
     return activities.splice(0,3);
+  }
+
+  doReshuffle(): void {
+    this.shuffeledActivities = this.shuffle(this.allActivities);
   }
 }
