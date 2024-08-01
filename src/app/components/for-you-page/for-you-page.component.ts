@@ -37,6 +37,6 @@ export class ForYouPageComponent implements OnInit{
       [activities[currentIndex], activities[randomIndex]] = [
         activities[randomIndex], activities[currentIndex]];
     }
-    return activities;
+    return activities.splice(0,3);
   }
 }

@@ -1,3 +1,27 @@
 .cards {
-    display: flex;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+    
+.btn-margin {
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+
+@media (min-width: 600px) {
+    app-activity-card {
+        margin: 10px;
+    }   
+    .cards {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .btn-margin {
+        display: block;
+        margin-top: 0; 
+        margin-bottom: 0;
+    }
+
 }
