@@ -8,8 +8,6 @@ app-footer {
     justify-content: space-between;
 }
 
-::ng-deep app-home-filter.modalOpened {
-    .mat-tab-body-active {
-        z-index: auto !important;
-    }
+app-navbar {
+    z-index: 5;
 }

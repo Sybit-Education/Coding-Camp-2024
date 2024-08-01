@@ -15,8 +15,8 @@
                 @for (type of types$ | async; track $index) {
                     @if(type.name) {
                         <button type="button" class="btn" data-bs-toggle="button"
-                            (click)="onFilter(type)">{{ type.name }}
-                    </button>
+                                (click)="onFilter(type)">{{ type.name }}
+                        </button>
                     }
                 }
             </div>
