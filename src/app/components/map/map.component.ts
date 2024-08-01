@@ -31,7 +31,7 @@ export class MapComponent implements OnInit {
   constructor(private router: Router, private airtableService: AirtableService) {}
 
   getBookmarked(osm_id: string | null | undefined) {
-    const item = sessionStorage.getItem("savedLocations")
+    const item = localStorage.getItem("savedLocations")
     if(item) {
       const savedLocations = JSON.parse(item)
       return savedLocations.includes(osm_id)
@@ -44,21 +44,21 @@ export class MapComponent implements OnInit {
       source: this.vectorSource
     });
 
-    this.map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
-          source: new OSM()
-        }),
-        vectorLayer
-      ],
-      view: new View({
-        center: fromLonLat([8.970869314606485, 47.73981783654207]),
-        zoom: 3,
-        minZoom: 10,
-        maxZoom: 20
-      })
-    });
+      this.map = new Map({
+        target: 'map',
+        layers: [
+          new TileLayer({
+            source: new OSM()
+          }),
+          vectorLayer
+        ],
+        view: new View({
+          center: fromLonLat([8.970869314606485, 47.73981783654207]),
+          zoom: 3,
+          minZoom: 12,
+          maxZoom: 25
+        })
+      });
 
     this.map.on('click', this.handleMapClick.bind(this));
     this.map.on('pointermove', this.handlePointerMove.bind(this));    

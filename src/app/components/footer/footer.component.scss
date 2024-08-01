@@ -2,3 +2,14 @@
   background-color: var(--lightBlue);;
   color: white;
 }
+
+.footer-link {
+  text-decoration: underline;
+  color: #000000;
+}
+
+.footer-container {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}

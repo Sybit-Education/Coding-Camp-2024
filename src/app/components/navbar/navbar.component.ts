@@ -21,6 +21,7 @@ import { NgIf, NgOptimizedImage } from "@angular/common";
 export class NavbarComponent {
     searchTerm = '';
     isRootUrl = false;
+    isHamburgerMenuActive = false;
 
     constructor(private router: Router) {
         this.router.events.subscribe(() => {
@@ -38,5 +39,9 @@ export class NavbarComponent {
         if (event.key === 'Enter') {
             this.router.navigate(['/search-result'], { queryParams: { q: this.searchTerm } });
         }
+    }
+
+    showHamburgerMenu() {
+        this.isHamburgerMenuActive = !this.isHamburgerMenuActive
     }
 }

@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from "@angular/core";
-import {HeaderComponent} from "../../components/header/header.component";
 import {SearchComponent} from "../../components/search/search.component";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {MapComponent} from "../../components/map/map.component";
@@ -14,28 +13,15 @@ import {AirtableService} from '../../services/airtable.service';
 import {ActivityCardComponent} from "../../components/activity-card/activity-card.component";
 import {NavbarComponent} from "../../components/navbar/navbar.component";
 import {FeedSettingsComponent} from "../../components/feed-settings/feed-settings.component";
-import { ScrollNearEndDirective } from "../../scroll-near-end.directive";
+import {ScrollNearEndDirective} from "../../scroll-near-end.directive";
+import {MapViewComponent} from "../map-view/map-view.component";
 
 @Component({
-	selector: "app-home",
-	standalone: true,
-	imports: [
-		HeaderComponent,
-		SearchComponent,
-		FilterComponent,
-		MapComponent,
-		RouterLink,
-		ListComponent,
-		AsyncPipe,
-		FooterComponent,
-		ActivityCardComponent,
-		NavbarComponent,
-		FeedSettingsComponent,
-        ScrollNearEndDirective
-		
-	],
-	templateUrl: "./home.component.html",
-	styleUrl: "./home.component.scss",
+    selector: "app-home",
+    standalone: true,
+    imports: [ SearchComponent, FilterComponent, MapComponent, RouterLink, ListComponent, AsyncPipe, FooterComponent, ActivityCardComponent, NavbarComponent, FeedSettingsComponent, ScrollNearEndDirective, MapViewComponent],
+    templateUrl: "./home.component.html",
+    styleUrl: "./home.component.scss",
 })
 export class HomeComponent implements OnInit {
     activities$!: Observable<Activity[]>
@@ -44,27 +30,24 @@ export class HomeComponent implements OnInit {
     listView = false;
     hasBeenScrolled = false;
 
-    constructor(
-        private airtable: AirtableService,
-        private viewport: ViewportScroller,
-        @Inject(DOCUMENT) private document: Document    
-    ) {
+    constructor(private airtable: AirtableService, private viewport: ViewportScroller, @Inject(DOCUMENT) private document: Document) {
     }
 
     ngOnInit() {
-        this.activities$ = combineLatest([
-            this.filterSubject,
-            this.searchTermSubject
-        ]).pipe(
-            switchMap(([filters, searchTerm]) => this.airtable.getActivityList().pipe(
-                take(1),
-                map(activities => activities.filter(activity => (
-                        filters.length === 0 || filters.some(filter => filter.id === activity.type.id)
-                    ) && (searchTerm === '' || activity.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                ))
-            ))
-        )
-        fromEvent(this.document, 'scroll').subscribe(() => this.hasBeenScrolled = true)
+        this.activities$ = combineLatest([this.filterSubject, this.searchTermSubject])
+            .pipe(
+                switchMap(([filters, searchTerm]) =>
+                    this.airtable.getActivityList().pipe(
+                        take(1),
+                        map(activities => activities.filter(activity =>
+                            (filters.length === 0 || filters.some(filter => filter.id === activity.type.id)) &&
+                            (searchTerm === '' || activity.name.toLowerCase().includes(searchTerm.toLowerCase()))
+                        ))
+                    )
+                )
+            );
+
+        fromEvent(this.document, 'scroll').subscribe(() => this.hasBeenScrolled = true);
     }
 
     applyActiveFilters(filters: TypesInterface[]) {
@@ -81,5 +64,5 @@ export class HomeComponent implements OnInit {
 
     onNearEndScroll(): void {
         console.log('TODO: near end scroll');
-    }    
+    }
 }

@@ -1,21 +1,21 @@
 import {Routes} from '@angular/router';
-import {HomeComponent} from "./features/home/home.component";
 import {DetailComponent} from "./components/detail/detail.component";
 import {AboutUsComponent} from "./features/about-us/about-us.component";
 import {ImprintComponent} from './features/imprint/imprint.component';
 import {PrivacyPolicyComponent} from './features/privacy-policy/privacy-policy.component';
 import {SearchResultComponent} from "./components/search-result/search-result.component";
 import {FavoritesComponent} from "./features/favorites/favorites.component";
-import {MapComponent} from "./features/map/map.component";
+import {MapViewComponent} from "./features/map-view/map-view.component";
+import { ForYouPageComponent } from './components/for-you-page/for-you-page.component';
 
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: ForYouPageComponent
     },
     {
         path: 'map',
-        component: MapComponent
+        component: MapViewComponent
     },
     {
         path: 'favorites',
