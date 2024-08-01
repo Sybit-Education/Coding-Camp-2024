@@ -4,11 +4,12 @@ import {FooterComponent} from "./components/footer/footer.component";
 import {MapComponent} from "./components/map/map.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {ActivityCardComponent} from "./components/activity-card/activity-card.component";
+import { NavbarComponent } from "./components/navbar/navbar.component";
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, FooterComponent, MapComponent, HeaderComponent, ActivityCardComponent],
+    imports: [RouterOutlet, FooterComponent, MapComponent, HeaderComponent, ActivityCardComponent, NavbarComponent],
     providers: [],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
