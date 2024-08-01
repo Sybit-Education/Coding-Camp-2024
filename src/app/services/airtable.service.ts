@@ -29,7 +29,7 @@ export class AirtableService {
         }
     }
 
-    getActivitiesByOsmId(osmId: string): Observable<Activity[]> {
+    getActivitiesByOsmId(osmId: number): Observable<Activity[]> {
         return this.getActivityList().pipe(map(activities => {
             return Array.from(activities).filter(activity => activity.osm_id == osmId)
         }))
@@ -42,6 +42,7 @@ export class AirtableService {
                     id: record["id"] as string,
                     name: record.fields["name"] as string,
                     color: record.fields["color"] as string,
+                    svg: record.fields["svg"] as string,
                 };
             });
         }),);
@@ -77,7 +78,7 @@ export class AirtableService {
                         latitude: record.fields['latitude'] as number,
                         longitude: record.fields['longitude'] as number,
                         website: record.fields['website'] as string,
-                        osm_id: record.fields['osm_id'] as string,
+                        osm_id: record.fields['osm_id'] as number,
                         media: medias.find((media: any) => media.id === (record.fields?.['media']?.[0])) as any,
                         age_restriction: record.fields['age_restriction'] as number,
                         barrier_free: record.fields['barrier_free'] as boolean,
