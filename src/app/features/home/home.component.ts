@@ -20,9 +20,23 @@ import {MapViewComponent} from "../map-view/map-view.component";
 @Component({
     selector: "app-home",
     standalone: true,
-    imports: [HeaderComponent, SearchComponent, FilterComponent, MapComponent, RouterLink, ListComponent, AsyncPipe, FooterComponent, ActivityCardComponent, NavbarComponent, FeedSettingsComponent, ScrollNearEndDirective, MapViewComponent],
-    templateUrl: "./home.component.html",
-    styleUrl: "./home.component.scss",
+	imports: [
+		HeaderComponent,
+		SearchComponent,
+		FilterComponent,
+		MapComponent,
+		RouterLink,
+		ListComponent,
+		AsyncPipe,
+		FooterComponent,
+		ActivityCardComponent,
+		NavbarComponent,
+		FeedSettingsComponent,
+        ScrollNearEndDirective,
+        MapViewComponent
+	],
+	templateUrl: "./home.component.html",
+	styleUrl: "./home.component.scss",
 })
 export class HomeComponent implements OnInit {
     activities$!: Observable<Activity[]>
