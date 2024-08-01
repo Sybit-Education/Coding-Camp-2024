@@ -4,42 +4,36 @@
     @if (activity.media) {
         <img class="card-img-top" [src]="activity.media.file?.[0].url" alt="{{activity.name}} Bild">
     }
-    <div class="card-body">
-        <div class="buttons flex gap-4">
-            <button type="button" class="btn">
-                <a class="flex items-center" onclick="history.back()">
-                    <i class="bi bi-arrow-left"></i>
-                    <p class="ml-2">Zurück</p>
-                </a>
-            </button>
-            @if (activity.website) {
-                <button type="button" class="btn">
-                    <a href="{{activity.website}}" class="flex items-center">
-                        <i class="bi bi-link-45deg"></i>
-                        <p class="ml-2">Website</p>
-                    </a>
-                </button>
-            }
-            @if (activity.maps_link) {
-                <button type="button" class="btn">
-                    <a href="{{activity.maps_link}}" class="flex items-center">
-                        <i class="bi bi-pin-map-fill"></i>
-                        <p class="ml-2">Maps</p>
-                    </a>
-                </button>
-            }
-        </div>        
-    <h1 class="card-title text-2xl font-bold text-gray-800">
-        {{ activity.name }} | {{ activity.type.name }}
-    </h1>
 
-    <address class="adresse mt-2 text-gray-700">
-        <i class="bi bi-geo"></i>
-        @if(activity.number && activity.street) {
-            <span>{{activity.street}} {{activity.number}}</span>,
+    <div class="buttons flex gap-4">
+        <button class="btn" onclick="history.back()">
+            <span><i class="bi bi-arrow-left"></i> Zurück</span>
+        </button>
+        @if (activity.website) {
+            <a href="{{activity.website}}" class="btn" role="button" >
+                <span><i class="bi bi-link-45deg"></i> Website</span>
+            </a>
         }
-        {{activity.zip}} {{activity.city}} {{activity.country}}
-    </address>
+        @if (activity.maps_link) {
+            <a href="{{activity.maps_link}}" class="btn" role="button" >
+                <span><i class="bi bi-pin-map-fill"></i> Maps</span>
+            </a>
+        }
+    </div> 
+        
+    <div class="card-body">  
+
+        <h1 class="card-title text-2xl font-bold text-gray-800">
+            {{ activity.name }} | {{ activity.type.name }}
+        </h1>
+
+        <address class="adresse mt-2 text-gray-700">
+            <i class="bi bi-geo"></i>
+            @if(activity.number && activity.street) {
+                <span>{{activity.street}} {{activity.number}}</span>,
+            }
+            {{activity.zip}} {{activity.city}} {{activity.country}}
+        </address>
 
 
 
