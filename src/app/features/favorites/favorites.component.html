@@ -2,7 +2,7 @@
     <h1 class="text-4xl mt-2 mb-2">Deine Favoriten</h1>
     <p class="text-lg mb-2">Hier werden deine favorisierten Aktivitäten angezeigt:</p>
 </div>
-<div class="flex flex-wrap gap-2 w-full justify-center items-center">
+<div class="flex flex-wrap gap-2 w-full justify-center items-center mb-2">
 	@for(bookmark of getBookmarks(); track bookmark) {
 	<app-activity-card [activity]="bookmark"></app-activity-card>
 	}
