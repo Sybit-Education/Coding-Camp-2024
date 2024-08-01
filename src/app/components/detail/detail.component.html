@@ -37,9 +37,11 @@
     </div>
 }
 <div class="buttons mt-6 flex gap-4">
-    <button type="button" class="btn" onclick="history.back()">
-        <i class="bi bi-arrow-left"></i>
-        <p class="ml-2">Zurück</p>
+    <button type="button" class="btn">
+        <a class="flex items-center" onclick="history.back()">
+            <i class="bi bi-arrow-left"></i>
+            <p class="ml-2">Zurück</p>
+        </a>
     </button>
     @if (activity?.website) {
         <button type="button" class="btn">
