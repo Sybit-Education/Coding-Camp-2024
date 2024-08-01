@@ -32,7 +32,7 @@ export class ForYouPageComponent implements OnInit{
   shuffle(activities: Activity[]): Activity[] {
     let currentIndex = activities.length;
     while (currentIndex != 0) {
-      let randomIndex = Math.floor(Math.random() * currentIndex);
+      const randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
       [activities[currentIndex], activities[randomIndex]] = [
         activities[randomIndex], activities[currentIndex]];
