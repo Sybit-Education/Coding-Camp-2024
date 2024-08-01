@@ -3,7 +3,11 @@
     <p class="text-lg mb-2">Hier werden deine favorisierten Aktivitäten angezeigt:</p>
 </div>
 <div class="flex flex-wrap gap-2 w-full justify-center items-center mb-2">
-	@for(bookmark of getBookmarks(); track bookmark) {
-	<app-activity-card [activity]="bookmark"></app-activity-card>
-	}
+    @if(getBookmarks() && !(getBookmarks().length === 0)) {
+        @for(bookmark of getBookmarks(); track bookmark) {
+        <app-activity-card [activity]="bookmark"></app-activity-card>
+        }
+    } @else {
+        <p>Du hast noch keine favorisierten Aktivitäten. Du kannst diese auf der <a class="text-blue-700 underline" routerLink="/">Home-Seite</a> finden!</p>
+    }
 </div>
