@@ -3,7 +3,11 @@
         {{ activity?.name }} | {{ activity?.type?.name }}
     </div>
     <div class="adresse mt-2 text-gray-600">
-        <p>{{activity?.street}} {{activity?.number}}, {{activity?.zip}} {{activity?.city}} {{activity?.country}}</p>
+        <p>
+            @if(activity?.number && activity?.street) {
+                <span>{{activity?.street}} {{activity?.number}}</span>,
+            }
+            {{activity?.zip}} {{activity?.city}} {{activity?.country}}</p>
     </div>
     @if (activity?.age_restriction) {
         <div class="minimal-age mt-2 text-red-500">
