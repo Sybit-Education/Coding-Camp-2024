@@ -17,8 +17,29 @@
                 (keydown)="onEnterKey($event)"
         />
     </div>
-    <a class="p-2 hover:bg-[#1891d7] font-semibold rounded-full pl-5 pr-5 transition-all ease-in cursor-pointer text-white text-nowrap"><app-get-lucky></app-get-lucky>
-    </a>
+    @if(isHamburgerMenuActive) {
+        <button type="button" (click)="showHamburgerMenu()" class="btn border-none text-white show-on-mobile hover:bg-[#6bc4f6]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8z"/>
+              </svg>
+        </button>
+    }
+    @else {
+        <button type="button" (click)="showHamburgerMenu()" class="btn border-none text-white show-on-mobile hover:bg-[#6bc4f6]">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"/>
+            </svg>
+        </button>
+    }
 </div>
 <div class="w-full relative z-[-1] min-h-[50px] max-h-[50px] h-[50px] bg-transparent"></div>
-
+@if(isHamburgerMenuActive) {
+    <div class="show-on-mobile">
+        <div class="fixed w-screen h-screen bg-[#6bc4f6] z-[999] flex flex-col pt-5 gap-y-5">
+            <a href="/" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-collection"></i>Für dich</a>
+            <a href="/map" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-map"></i>Karte</a>
+            <a href="/favorites" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-bookmark"></i>Favoriten</a>
+        </div>
+    </div>
+}
