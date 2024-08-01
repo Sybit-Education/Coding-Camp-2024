@@ -1,66 +1,72 @@
-<div class="text p-4 bg-gray-100 rounded-lg shadow-md">
-    <div class="headline text-2xl font-bold text-gray-800">
-        {{ activity?.name }} | {{ activity?.type?.name }}
-    </div>
-    <div class="adresse mt-2 text-gray-600">
-        <p>
-            @if(activity?.number && activity?.street) {
-                <span>{{activity?.street}} {{activity?.number}}</span>,
-            }
-            {{activity?.zip}} {{activity?.city}} {{activity?.country}}</p>
-    </div>
-    @if (activity?.age_restriction) {
-        <div class="minimal-age mt-2 text-red-500">
-            Altersempfehlung: {{ activity?.age_restriction }} Jahre
-        </div>
+@if(activity) {
+
+<div class="card my-4 bg-gray-100 shadow-md">
+    @if (activity.media) {
+        <img class="card-img-top" [src]="activity.media.file?.[0].url" alt="{{activity.name}} Bild">
     }
-    <div class="flex flex-row flex-wrap gap-2 mt-4">
-        @if(activity?.barrier_free) {
-            <div class="flex flex-row gap-x-2 p-2 pl-4 max-h-[40px] overflow-hidden justify-start items-center bg-blue-300 w-[120px] hover:w-[280px] cursor-pointer select-none transition-all ease-in duration-75 border-blue-400 border-solid border-2 rounded-md">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-wheelchair" viewBox="0 0 16 16">
-                        <path d="M12 3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m-.663 2.146a1.5 1.5 0 0 0-.47-2.115l-2.5-1.508a1.5 1.5 0 0 0-1.676.086l-2.329 1.75a.866.866 0 0 0 1.051 1.375L7.361 3.37l.922.71-2.038 2.445A4.73 4.73 0 0 0 2.628 7.67l1.064 1.065a3.25 3.25 0 0 1 4.574 4.574l1.064 1.063a4.73 4.73 0 0 0 1.09-3.998l1.043-.292-.187 2.991a.872.872 0 1 0 1.741.098l.206-4.121A1 1 0 0 0 12.224 8h-2.79zM3.023 9.48a3.25 3.25 0 0 0 4.496 4.496l1.077 1.077a4.75 4.75 0 0 1-6.65-6.65z"/>
-                    </svg>
-                </div>
-                <span class="text-[15px] font-semibold">Barrierefrei</span>
-                <span class="text-[11px] font-medium text-nowrap">Diese Location ist barrierefrei.</span>
-            </div>
+
+    <div class="buttons flex gap-4">
+        <button class="btn" onclick="history.back()">
+            <span><i class="bi bi-arrow-left"></i> Zurück</span>
+        </button>
+        @if (activity.website) {
+            <a href="{{activity.website}}" class="btn" role="button" >
+                <span><i class="bi bi-link-45deg"></i> Website</span>
+            </a>
         }
-    </div>
+        @if (activity.maps_link) {
+            <a href="{{activity.maps_link}}" class="btn" role="button" >
+                <span><i class="bi bi-pin-map-fill"></i> Maps</span>
+            </a>
+        }
+    </div> 
+        
+    <div class="card-body">  
 
-    @if (activity?.description){
-        <div class="description mt-4 text-gray-700">
-            {{ activity?.description }}
+        <h1 class="card-title text-2xl font-bold text-gray-800">
+            {{ activity.name }} | {{ activity.type.name }}
+        </h1>
+
+        <address class="adresse mt-2 text-gray-700">
+            <i class="bi bi-geo"></i>
+            @if(activity.number && activity.street) {
+                <span>{{activity.street}} {{activity.number}}</span>,
+            }
+            {{activity.zip}} {{activity.city}} {{activity.country}}
+        </address>
+
+
+
+    @if (activity.age_restriction) {
+        <div class="minimal-age mt-2 text-red-400">
+            Altersempfehlung: ab {{ activity.age_restriction }} Jahre
         </div>
     }
-</div>
+    @if(activity.barrier_free) {
+        <div class="flex flex-row flex-wrap gap-2 mt-4">      
+            <div class="flex flex-row gap-x-2 p-2 pl-4 max-h-[40px] overflow-hidden justify-start items-center bg-blue-300 w-[120px] hover:w-[280px] cursor-pointer select-none transition-all ease-in duration-75 border-blue-400 border-solid border-2 rounded-md">
+                <i class="bi bi-person-wheelchair"></i>
+                <span class="text-[15px] font-semibold">Barrierefrei</span>
+                <span class="text-[11px] font-medium text-nowrap">Diese Aktivität ist barrierefrei.</span>
+            </div>
+        </div>
+    }
 
-@if (activity?.media) {
-    <div class="mt-4">
-        <img class="rounded-lg shadow-md" [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
+    @if (activity.description){
+        <hr class="my-4">
+        <div class="card-text text-gray-700">
+            {{ activity.description }}
+        </div>
+    }
+    </div>
+</div>
+} @else {
+    <div class="card my-4 bg-gray-100 shadow-md" style="height: 80vh;">
+        <div class="card-img-top" style="background-color: lightgray; width:100%; height: 30vh;"></div>
+        <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
     </div>
 }
-<div class="buttons mt-6 flex gap-4">
-    <button type="button" class="btn" onclick="history.back()">
-        <a class="flex items-center">
-            <i class="bi bi-arrow-left"></i>
-            <p class="ml-2">Zurück</p>
-        </a>
-    </button>
-    @if (activity?.website) {
-        <button type="button" class="btn">
-            <a href="{{activity?.website}}" class="flex items-center">
-                <i class="bi bi-link-45deg"></i>
-                <p class="ml-2">Website</p>
-            </a>
-        </button>
-    }
-    @if (activity?.maps_link) {
-        <button type="button" class="btn">
-            <a href="{{activity?.maps_link}}" class="flex items-center">
-                <i class="bi bi-pin-map-fill"></i>
-                <p class="ml-2">Maps</p>
-            </a>
-        </button>
-    }
-</div>
