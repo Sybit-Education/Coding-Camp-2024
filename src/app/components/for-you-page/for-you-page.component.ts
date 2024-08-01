@@ -16,33 +16,30 @@ export class ForYouPageComponent implements OnInit{
   shuffeledActivities: Activity[] = [];
   allActivities: Activity[] = [];
 
-  constructor(private airtable: AirtableService){
+  constructor(private airtable: AirtableService){}
 
-
-  }
   ngOnInit(): void {
     this.airtable.getActivityList().subscribe(
       {
         next: activities => {
           this.allActivities = activities;
-          this.shuffeledActivities = this.shuffle(activities);
+          this.shuffeledActivities = this.shuffle(this.allActivities, 3);
         }
       }
     )
   }
 
-  shuffle(activities: Activity[]): Activity[] {
-    let currentIndex = activities.length;
-    while (currentIndex != 0) {
-      const randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-      [activities[currentIndex], activities[randomIndex]] = [
-        activities[randomIndex], activities[currentIndex]];
+  shuffle(activities: Activity[], count: number): Activity[] {
+    const shuffledArray = activities.slice();
+    for (let i = shuffledArray.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
     }
-    return activities.splice(0,3);
+
+    return shuffledArray.slice(0, count);
   }
 
   doReshuffle(): void {
-    this.shuffeledActivities = this.shuffle(this.allActivities);
+    this.shuffeledActivities = this.shuffle(this.allActivities, 3);
   }
 }
