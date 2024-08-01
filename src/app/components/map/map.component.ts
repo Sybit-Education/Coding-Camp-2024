@@ -30,7 +30,7 @@ export class MapComponent implements OnInit {
 
   constructor(private router: Router, private airtableService: AirtableService) {}
 
-  getBookmarked(osm_id: string | null | undefined) {
+  getBookmarked(osm_id: number | null | undefined) {
     const item = localStorage.getItem("savedLocations")
     if(item) {
       const savedLocations = JSON.parse(item)

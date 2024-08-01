@@ -14,7 +14,7 @@ export class FavoritesComponent {
 
   constructor(private airtable: AirtableService) { }
 
-  getActivityByOsm(osm_id: string) {
+  getActivityByOsm(osm_id: number) {
      return this.airtable.getActivitiesByOsmId(osm_id);
   }
 
