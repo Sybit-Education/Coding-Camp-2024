@@ -27,8 +27,9 @@ export class DetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const osmId = this.route.snapshot.paramMap.get('osm_id');
-        if (osmId) {
+        const osmIdString = this.route.snapshot.paramMap.get('osm_id');
+        if (osmIdString) {
+            const osmId = parseInt(osmIdString, 10);
             this.activityService.getActivitiesByOsmId(osmId).subscribe((activities) => {
                 this.activity = activities[0];
             });

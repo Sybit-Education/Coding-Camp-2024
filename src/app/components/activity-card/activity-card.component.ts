@@ -20,7 +20,7 @@ export class ActivityCardComponent implements OnInit {
     this.getBookmarked(this.activity?.osm_id)
   }
 
-	onBookmark(osm_id: string | null | undefined) {
+	onBookmark(osm_id: number | null | undefined) {
 	  this.isBookmarked = !this.isBookmarked
 	  const item = localStorage.getItem("savedLocations")
     if (item) {
@@ -38,7 +38,7 @@ export class ActivityCardComponent implements OnInit {
 
 	}
 
-  getBookmarked(osm_id: string | null | undefined) {
+  getBookmarked(osm_id: number | null | undefined) {
     const item = localStorage.getItem("savedLocations")
     if(item) {
       const savedLocations = JSON.parse(item)
