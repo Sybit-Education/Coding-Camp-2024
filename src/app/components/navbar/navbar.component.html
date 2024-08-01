@@ -17,6 +17,8 @@
                 (keydown)="onEnterKey($event)"
         />
     </div>
+    <button routerLink="/map" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
+    <button routerLink="/favorites" class="btn hide-on-mobile rounded-full"><i class="bi bi-bookmark"></i></button>
     @if(isHamburgerMenuActive) {
         <button type="button" (click)="showHamburgerMenu()" class="btn border-none text-white show-on-mobile hover:bg-[#6bc4f6]">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
