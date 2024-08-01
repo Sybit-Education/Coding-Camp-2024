@@ -6,7 +6,7 @@ import { Vector as VectorLayer } from 'ol/layer';
 import { Vector as VectorSource } from 'ol/source';
 import Feature from 'ol/Feature';
 import { Point, Geometry } from 'ol/geom';
-import { Style, Circle, Fill, Stroke } from 'ol/style';
+import { Style, Icon } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 import { Router } from '@angular/router';
 import { AirtableService } from '../../services/airtable.service';
@@ -65,20 +65,18 @@ export class MapComponent implements OnInit {
 
     this.airtableService.getActivityList().subscribe(activities => {
       activities.forEach(activity => {
+        const local = this.getBookmarked(activity.osm_id);
+        const color = local ? "gold" : "black"
+
         const feature = new Feature({
           geometry: new Point(fromLonLat([activity.longitude, activity.latitude])),
           activity: activity
         });
 
-        const local = this.getBookmarked(activity.osm_id);
-        const borderSize = local ? 10.0 : 0.75
-        const color = local ? "gold" : "black"
-
         feature.setStyle(new Style({
-          image: new Circle({
-            radius: 8,
-            fill: new Fill({ color: activity.type.color }),
-            stroke: new Stroke({ color: color, width: borderSize })
+          image: new Icon({
+            src: 'data:image/svg+xml;utf8,' + activity.type.svg,
+            color: color
           })
         }));
 
@@ -107,17 +105,15 @@ export class MapComponent implements OnInit {
       const activity = (feature as Feature<Geometry>).get('activity');
       if (activity) {
         const tooltipElement = this.tooltip.nativeElement;
-        const borderSize = this.getBookmarked(activity.osm_id) ? 5.0 : 0.75
         const color = this.getBookmarked(activity.osm_id) ? "gold" : "black"
         tooltipElement.innerHTML = activity.name + ' (' + activity.type.name + (this.getBookmarked(activity.osm_id) ? " / favorisiert" : "") + ')';
         tooltipElement.style.display = 'block';
         tooltipElement.style.left = event.originalEvent.pageX + 'px';
         tooltipElement.style.top = (event.originalEvent.pageY - 15) + 'px';
         (feature as Feature<Geometry>).setStyle(new Style({
-          image: new Circle({
-            radius: 10,
-            fill: new Fill({ color: activity.type.color }),
-            stroke: new Stroke({ color: color, width: borderSize })
+          image: new Icon({
+            src: 'data:image/svg+xml;utf8,' + activity.type.svg,
+            color: color,
           })
         }));
       }
@@ -127,13 +123,11 @@ export class MapComponent implements OnInit {
       this.tooltip.nativeElement.style.display = 'none';
       this.vectorSource.getFeatures().forEach((feature: Feature<Geometry>) => {
         const activity = feature.get('activity');
-        const borderSize = this.getBookmarked(activity.osm_id) ? 5.0 : 0.75
         const color = this.getBookmarked(activity.osm_id) ? "gold" : "black"
         feature.setStyle(new Style({
-          image: new Circle({
-            radius: 8,
-            fill: new Fill({ color: activity.type.color }),
-            stroke: new Stroke({ color: color, width: borderSize })
+          image: new Icon({
+            src: 'data:image/svg+xml;utf8,' + activity.type.icon,
+            color: color
           })
         }));
       });
