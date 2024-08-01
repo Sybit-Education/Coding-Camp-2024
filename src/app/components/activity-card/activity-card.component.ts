@@ -10,7 +10,7 @@ import { RouterLink } from "@angular/router";
 	styleUrl: "./activity-card.component.scss",
 })
 export class ActivityCardComponent implements OnInit {
-	image = "assets/images/logo.png";
+	image = "/images/logo.png";
 
 	@Input() activity: Activity | null = null;
 
