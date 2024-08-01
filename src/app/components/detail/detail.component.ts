@@ -27,11 +27,16 @@ export class DetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.scrollToTop();
         const osmId = this.route.snapshot.paramMap.get('osm_id');
         if (osmId) {
             this.activityService.getActivitiesByOsmId(osmId).subscribe((activities) => {
                 this.activity = activities[0];
             });
         }
+    }
+
+    scrollToTop(): void {
+        window.scrollTo(0, 0);
     }
 }
