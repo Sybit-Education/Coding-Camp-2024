@@ -20,21 +20,7 @@ import {MapViewComponent} from "../map-view/map-view.component";
 @Component({
     selector: "app-home",
     standalone: true,
-    imports: [
-        HeaderComponent,
-        SearchComponent,
-        FilterComponent,
-        MapComponent,
-        RouterLink,
-        ListComponent,
-        AsyncPipe,
-        FooterComponent,
-        ActivityCardComponent,
-        NavbarComponent,
-        FeedSettingsComponent,
-        ScrollNearEndDirective,
-        MapViewComponent
-    ],
+    imports: [HeaderComponent, SearchComponent, FilterComponent, MapComponent, RouterLink, ListComponent, AsyncPipe, FooterComponent, ActivityCardComponent, NavbarComponent, FeedSettingsComponent, ScrollNearEndDirective, MapViewComponent],
     templateUrl: "./home.component.html",
     styleUrl: "./home.component.scss",
 })
@@ -45,26 +31,11 @@ export class HomeComponent implements OnInit {
     listView = false;
     hasBeenScrolled = false;
 
-    constructor(
-        private airtable: AirtableService,
-        private viewport: ViewportScroller,
-        @Inject(DOCUMENT) private document: Document
-    ) {
+    constructor(private airtable: AirtableService, private viewport: ViewportScroller, @Inject(DOCUMENT) private document: Document) {
     }
 
     ngOnInit() {
-        this.activities$ = combineLatest([
-            this.filterSubject,
-            this.searchTermSubject
-        ]).pipe(
-            switchMap(([filters, searchTerm]) => this.airtable.getActivityList().pipe(
-                take(1),
-                map(activities => activities.filter(activity => (
-                        filters.length === 0 || filters.some(filter => filter.id === activity.type.id)
-                    ) && (searchTerm === '' || activity.name.toLowerCase().includes(searchTerm.toLowerCase()))
-                ))
-            ))
-        )
+        this.activities$ = combineLatest([this.filterSubject, this.searchTermSubject]).pipe(switchMap(([filters, searchTerm]) => this.airtable.getActivityList().pipe(take(1), map(activities => activities.filter(activity => (filters.length === 0 || filters.some(filter => filter.id === activity.type.id)) && (searchTerm === '' || activity.name.toLowerCase().includes(searchTerm.toLowerCase())))))))
         fromEvent(this.document, 'scroll').subscribe(() => this.hasBeenScrolled = true)
     }
 
