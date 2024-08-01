@@ -24,10 +24,30 @@
    
     @if (activity?.description){
     <div class="discription">
-    {{ activity?.description }}
+        {{ activity?.description }}
     </div>
     }
 </div>
+@if (activity?.longitude){
+    <div class="longitude">
+        {{activity?.longitude}}
+    </div>
+}
+
+@if (activity?.latitude){
+    <div class="latitude">
+        {{activity?.latitude}}
+    </div>
+}
+
+
+
+
+
+
+
+
+
 @if (activity?.media) {
     <img [src]="activity?.media.file?.[0].url" alt="{{activity?.name}} Bild">
 }
