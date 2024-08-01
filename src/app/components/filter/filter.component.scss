@@ -1,16 +1,19 @@
-.tag {
-  border: #4C4A52 solid 2px;
-  border-radius: 30px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-
-  &:active {
-    background-color: #6bc4f6;
-
-  }
+/* Ensure the body or modal container has a defined position */
+body {
+  position: relative; /* Establish a new stacking context */
 }
 
-.active {
-  background-color: #6bc4f6;
-  color: white;
+/* Apply to the container holding the modal if necessary */
+::ng-deep .modal-container {
+  position: relative;
+  z-index: 8;  /* Ensure it's in a stacking context that allows proper z-index behavior */
+}
+
+/* Modal and backdrop adjustments */
+::ng-deep .modal-backdrop {
+  z-index: 7 !important;
+}
+
+.modal {
+  z-index: 1055 !important;
 }

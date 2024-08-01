@@ -3,18 +3,20 @@ import { FormsModule } from '@angular/forms';
 import { GetLuckyComponent } from "../get-lucky/get-lucky.component";
 import { Router, RouterLink, RouterModule } from "@angular/router";
 import { NgIf, NgOptimizedImage } from "@angular/common";
+import { FilterComponent } from "../filter/filter.component";
 
 @Component({
     selector: 'app-navbar',
     standalone: true,
     imports: [
-        FormsModule,
-        GetLuckyComponent,
-        RouterLink,
-        RouterModule,
-        NgIf,
-        NgOptimizedImage
-    ],
+    FormsModule,
+    GetLuckyComponent,
+    RouterLink,
+    RouterModule,
+    NgIf,
+    NgOptimizedImage,
+    FilterComponent
+],
     templateUrl: './navbar.component.html',
     styleUrls: ['./navbar.component.scss']
 })
