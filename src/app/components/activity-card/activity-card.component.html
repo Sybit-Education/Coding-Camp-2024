@@ -40,7 +40,7 @@
               (click)="onBookmark(activity?.osm_id)"
               class="bg-[#6bc4f6] hover:bg-[#1891d7] active:bg-[#6bc4f6] transition-all ease-in duration-75 min-w-10 min-h-10 max-h-10 max-w-10 w-10 h-10 flex justify-center items-center text-white rounded-md">
               @if (isBookmarked) {
-              <i id="bookmark_id_2" class="bi bi-bookmark-fill" routerLink="/activity-details/{{ activity?.osm_id }}"
+              <i id="bookmark_id_2" class="bi bi-bookmark-fill"
               ></i>
               } @else {
               <i id="bookmark_id_1" class="bi bi-bookmark"></i>
