@@ -1,0 +1,8 @@
+.show-on-mobile {
+    @apply block;
+}
+@media (min-width:600px) {
+    .show-on-mobile {
+        @apply hidden;
+    }
+}

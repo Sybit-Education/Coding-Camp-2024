@@ -6,7 +6,7 @@ import {ImprintComponent} from './features/imprint/imprint.component';
 import {PrivacyPolicyComponent} from './features/privacy-policy/privacy-policy.component';
 import {SearchResultComponent} from "./components/search-result/search-result.component";
 import {FavoritesComponent} from "./features/favorites/favorites.component";
-import {MapComponent} from "./features/map/map.component";
+import {MapViewComponent} from "./features/map-view/map-view.component";
 
 export const routes: Routes = [
     {
@@ -15,7 +15,7 @@ export const routes: Routes = [
     },
     {
         path: 'map',
-        component: MapComponent
+        component: MapViewComponent
     },
     {
         path: 'favorites',
