@@ -28,7 +28,21 @@
 img {
     margin-left: 15%;
     margin-right: 15%;
-    margin-bottom: 5%;
     height: auto;
     width: 70%;
+}
+.buttons {
+    padding-top: 15px;
+    margin-left: 15%;
+    margin-right: 15%;
+    padding-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+}
+
+@media (max-width: 768px) {
+        .button-text {
+            display: none;
+        }
 }
