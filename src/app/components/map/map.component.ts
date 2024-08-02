@@ -25,11 +25,11 @@ export class MapComponent implements OnInit {
     map!: Map;
     vectorSource!: VectorSource;
 
-    iconSize = 0.15;
+  //iconSize = 0.15;
     center = [8.970869314606485, 47.73981783654207];
     userLocationFeature: Feature = new Feature();
 
-    @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
+  @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
 
     constructor(private router: Router, private airtableService: AirtableService, private geolocationService: GeolocationService) {}
 
@@ -86,7 +86,7 @@ export class MapComponent implements OnInit {
             image: new Icon({
               src: 'data:image/svg+xml;utf8,' + activity.type.svg,
               color: this.getColor(activity),
-              size: [this.iconSize, this.iconSize]
+              size: [activity.type.svg_scale, activity.type.svg_scale]
             })
           })
         });
@@ -99,7 +99,7 @@ export class MapComponent implements OnInit {
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
             color: this.getColor(activity),
-            scale: this.iconSize
+            scale: activity.type.svg_scale
           })
         }));
       });
@@ -153,7 +153,7 @@ export class MapComponent implements OnInit {
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
             color: this.getColor(activity),
-            scale: this.iconSize,
+            scale: activity.type.svg_scale
           })
         }));
       } 
@@ -169,7 +169,7 @@ export class MapComponent implements OnInit {
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
             color: this.getColor(activity),
-            scale: this.iconSize
+            scale: activity.type.svg_scale
           })
         }));
       });
@@ -187,10 +187,10 @@ export class MapComponent implements OnInit {
             console.log('Center: ', this.center);
             this.map.getView().setCenter(fromLonLat(this.center));
             const coordinates = fromLonLat(this.center);
-            this.userLocationFeature.setGeometry(new Point(coordinates));            
+            this.userLocationFeature.setGeometry(new Point(coordinates));
           })
           .catch(error => {
             console.error('Error getting location: ', error);
           });
-    }    
+    }
 }
