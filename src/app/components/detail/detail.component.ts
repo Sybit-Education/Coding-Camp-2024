@@ -43,21 +43,30 @@ export class DetailComponent implements OnInit {
     }
 
     onBookmark(osm_id: number | null | undefined) {
-        this.isBookmarked = !this.isBookmarked
-        const item = localStorage.getItem("savedLocations")
-        if (item) {
-            const savedLocations = JSON.parse(item)
-            if (this.isBookmarked) {
-                savedLocations.push(osm_id)
-            } else {
-                const index = savedLocations.indexOf(osm_id)
-                savedLocations.splice(index, 1)
-            }
-            localStorage.setItem("savedLocations", JSON.stringify(savedLocations))
-        } else {
-            localStorage.setItem("savedLocations", JSON.stringify([osm_id]))
+        if (osm_id === null || osm_id === undefined) {
+            return;
         }
-
+    
+        this.isBookmarked = !this.isBookmarked;
+        const item = localStorage.getItem("savedLocations");
+        if (item) {
+            const savedLocations = JSON.parse(item);
+            const index = savedLocations.indexOf(osm_id);
+    
+            if (this.isBookmarked) {
+                if (index === -1) {
+                    savedLocations.push(osm_id);
+                }
+            } else {
+                if (index !== -1) {
+                    savedLocations.splice(index, 1);
+                }
+            }
+    
+            localStorage.setItem("savedLocations", JSON.stringify(savedLocations));
+        } else {
+            localStorage.setItem("savedLocations", JSON.stringify([osm_id]));
+        }
     }
 
     getBookmarked(osm_id: number | null | undefined) {
@@ -65,6 +74,8 @@ export class DetailComponent implements OnInit {
         if(item) {
             const savedLocations = JSON.parse(item)
             this.isBookmarked = savedLocations.includes(osm_id)
+            return this.isBookmarked
         }
+        return false
     }
 }
