@@ -71,10 +71,10 @@ export class MapComponent implements OnInit {
         image: new Icon({
           src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
           anchor: [0.5, 1], // Bildausrichtung
-          scale: 0.05 // Größe des Pins
+          scale: 0.09 // Größe des Pins
         })
       }));
-    
+
     this.vectorSource.addFeature(this.userLocationFeature);
     this.map.on('click', this.handleMapClick.bind(this));
     this.map.on('pointermove', this.handlePointerMove.bind(this));
