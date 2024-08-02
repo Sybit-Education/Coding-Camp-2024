@@ -45,7 +45,15 @@ export class FilterComponent implements OnInit {
     acceptFilters() {
         this.filtersEvent.emit(this.filters);
         const filterNames = this.filters.map(filter => filter.name).join(',');
-        const url = `${window.location.href.split("&filters=")[0]}&filters=${encodeURIComponent(filterNames)}`;
-        window.location.href = url;
+        const encodedFilters = encodeURIComponent(filterNames);
+        const currentUrl = window.location.href;
+        
+        if (currentUrl.includes("/search-result")) {
+            const url = `${currentUrl.split("&filters=")[0]}&filters=${encodedFilters}`;
+            window.location.href = url;
+        } else {
+            const url = `/search-result?filters=${encodedFilters}`;
+            window.location.href = url;
+        }
     }
 }
