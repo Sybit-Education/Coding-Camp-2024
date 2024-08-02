@@ -1,54 +1,14 @@
-.text{
-    margin-top: 2%;
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-bottom: 2%;
-}
-.headline {
-    font-size: 30px;
-    font-weight: bold;
-    padding-bottom: 2%;
-}
-.barrier_free{
-    text-align: left;
-    display: flex;
-    vertical-align: baseline;
-}
-.minimal-age {
-    font-size: 20px;
-    padding-bottom: 1%;
-}
-.description {
-    text-align: justify;
-}
-.barrier_free_text {
-    font-size: 17px;
-    padding-bottom: 1%;
-}
-img {
-    margin-left: 15%;
-    margin-right: 15%;
-    height: auto;
-    width: 70%;
-}
-.buttons {
-    padding-top: 15px;
-    margin-left: 15%;
-    margin-right: 15%;
-    padding-bottom: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 10%;
+.card-img-top {
+    max-height: 40vh;
+    object-fit: cover;
 }
 
 @media (max-width: 768px) {
-        .button-text {
-            display: none;
-        }
+    .button-text {
+        display: none;
+    }
 }
-.latitude{
-    text-align: center;
-}
-.longitude{
-    text-align: center;
+
+.badge {
+    padding: 0.5rem;
 }
