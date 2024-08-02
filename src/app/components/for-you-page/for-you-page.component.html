@@ -7,11 +7,12 @@
         <app-activity-card [activity]="activity"></app-activity-card>
         }
     </div>
-    <div class="flex justify-center items-center mt-2 mb-2">
+    <div class="flex flex-col justify-center items-center mt-2 mb-2">
         <button type="button" class="btn btn-margin" (click)="doReshuffle()">
             <i class="bi bi-shuffle"></i>
             Neue Vorschläge
         </button>
+        <button type="button" class="btn btn-margin" routerLink="/search-result">Alle anzeigen</button>
     </div>
     } @else {
         <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
