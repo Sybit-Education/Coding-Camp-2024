@@ -62,4 +62,13 @@ export class NavbarComponent {
     applyActiveFilters(filters: TypesInterface[]) {
         this.filterSubject.next(filters);
     }
+
+    getFavouriteCount() {
+        const item = localStorage.getItem("savedLocations")
+        if (item) {
+            const savedLocations = JSON.parse(item)
+            return savedLocations.length
+        }
+        return 0
+    }
 }
