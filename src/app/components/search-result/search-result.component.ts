@@ -38,7 +38,7 @@ export class SearchResultComponent implements OnInit {
         switchMap(() => {
           return this.airtableService.getActivityList().pipe(
               map(activities => activities.filter(activity =>
-                  activity.name.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+                  (activity.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || this.searchTerm.includes(activity.city)) &&
                   (this.filters.length === 0 || this.filters.includes(activity.type.name || ''))
               ))
           );
