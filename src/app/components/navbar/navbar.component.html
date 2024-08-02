@@ -5,7 +5,7 @@
         </a>
     </div>
     <div 
-         class="flex flex-row w-11/12 min-h-[40px] max-w-[800px] ml-2 mr-2 group bg-blue-100 rounded-full mt-1 mb-1 justify-start text-[#000] items-center">
+         class="flex flex-row w-11/12 min-h-[40px] max-w-[800px] ml-2 mr-2 group bg-blue-100 rounded-full mt-1 mb-1 justify-center text-[#000] items-center">
         <i class="bi bi-search w-[50px] text-center text-gray-400 group-hover:text-black group-active:text-black transition-all ease-in"></i>
         <input
                 autocomplete="off"
@@ -16,7 +16,7 @@
                 (input)="onSearch()"
                 (keydown)="onEnterKey($event)"
         />
-        <app-home-filter></app-home-filter>
+        <app-home-filter></app-home-filter>        
     </div>
     @if ( !isMapUrl) {
     <button routerLink="/map" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
