@@ -7,12 +7,15 @@
         <app-activity-card [activity]="activity"></app-activity-card>
         }
     </div>
-    <div class="flex flex-col justify-center items-center mt-2 mb-2">
-        <button type="button" class="btn btn-margin" (click)="doReshuffle()">
-            <i class="bi bi-shuffle"></i>
+    <div class="flex flex-row justify-center items-center mt-2 mb-2">
+        <button type="button" class="btn btn-margin flex flex-row" routerLink="/search-result">
+            <i class="bi bi-search mr-2"></i>
+            Alle anzeigen
+        </button>
+        <button type="button" class="btn btn-margin flex flex-row" (click)="doReshuffle()">
+            <i class="bi bi-shuffle mr-2"></i>
             Neue Vorschläge
         </button>
-        <button type="button" class="btn btn-margin" routerLink="/search-result">Alle anzeigen</button>
     </div>
     } @else {
         <div class="d-flex justify-content-center align-items-center" style="height: 80vh;">
