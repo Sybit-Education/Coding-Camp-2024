@@ -22,6 +22,7 @@ export class SearchResultComponent implements OnInit {
   searchTerm = '';
   activities: Activity[] = [];
   hasResults = false;
+  filters: string[] = [];
 
   constructor(
       private route: ActivatedRoute,
@@ -30,12 +31,15 @@ export class SearchResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.pipe(
-        map(params => params['q'] || ''),
-        switchMap(searchTerm => {
-          this.searchTerm = searchTerm;
+        map(params => {
+          this.searchTerm = params['q'] || '';
+          this.filters = params['filters'] ? params['filters'].split(',') : [];
+        }),
+        switchMap(() => {
           return this.airtableService.getActivityList().pipe(
               map(activities => activities.filter(activity =>
-                  activity.name.toLowerCase().includes(searchTerm.toLowerCase())
+                  activity.name.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
+                  (this.filters.length === 0 || this.filters.includes(activity.type.name || ''))
               ))
           );
         })
