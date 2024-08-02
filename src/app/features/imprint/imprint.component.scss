@@ -1,4 +1,4 @@
-.box1 {
+.box {
   text-align: center;
   font-size: larger;
 }
@@ -14,3 +14,46 @@ h2 {
 h4 {
   font-size: 30px;
 }
+
+.Angaben {padding-top: 20px;
+  padding-bottom: 50px;
+  }
+
+.Kontakt {
+   
+    padding-bottom: 50px;}
+
+.Umsatzsteuer-ID {
+      padding-bottom: 50px;}
+
+.Redaktionell {
+        padding-bottom: 50px;
+     }
+
+.EU-Streitschlichtung {
+          padding-right: 30px;
+          padding-bottom: 50px;
+          padding-left: 80px;}
+
+.Verbraucher­streit­beilegung {         
+            padding-bottom: 40px;}
+
+.Haftungshinweis {padding-top: 10px;
+              padding-bottom: 30px;
+              }
+
+              @media (max-width: 600px) {
+
+                .box {
+                  font-size: 10px;
+                }
+                h1 {font-size: 18px;
+                    font-weight: 600;}
+
+                h2 {font-size: 15px;
+                      font-weight: 600;}
+                
+                h4 {font-size: 13px;
+                  font-weight: 500;}
+                
+              }
