@@ -1,5 +1,10 @@
 <div class="center">
-    <p class="lead w-full text-center font-bold mt-2">Suchergebnisse für: "{{ searchTerm }}"</p>
+    @if(searchTerm !== "") {
+        <p class="lead w-full text-center font-bold mt-2">Suchergebnisse für: "{{ searchTerm }}"</p>
+    } @else {
+        <p class="lead w-full text-center font-bold mt-2">Aktivitäten</p>
+    }
+    
     <br>
     <div>
         <ng-container [ngSwitch]="hasResults">
