@@ -25,9 +25,9 @@ export class MapComponent implements OnInit {
   map!: Map;
   vectorSource!: VectorSource;
 
-  iconSize = 0.15;
+  //iconSize = 0.15;
 
-    @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
+  @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
 
   constructor(private router: Router, private airtableService: AirtableService) {}
   
@@ -81,7 +81,7 @@ export class MapComponent implements OnInit {
             image: new Icon({
               src: 'data:image/svg+xml;utf8,' + activity.type.svg,
               color: this.getColor(activity),
-              size: [this.iconSize, this.iconSize]
+              size: [activity.type.svg_scale, activity.type.svg_scale]
             })
           })
         });
@@ -94,7 +94,7 @@ export class MapComponent implements OnInit {
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
             color: this.getColor(activity),
-            scale: this.iconSize
+            scale: activity.type.svg_scale
           })
         }));
       });
@@ -131,7 +131,7 @@ export class MapComponent implements OnInit {
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
             color: this.getColor(activity),
-            scale: this.iconSize,
+            scale: activity.type.svg_scale
           })
         }));
       } 
@@ -147,7 +147,7 @@ export class MapComponent implements OnInit {
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
             color: this.getColor(activity),
-            scale: this.iconSize
+            scale: activity.type.svg_scale
           })
         }));
       });
