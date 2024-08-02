@@ -1,9 +1,7 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { Map, View } from 'ol';
-import { Tile as TileLayer } from 'ol/layer';
-import { OSM } from 'ol/source';
-import { Vector as VectorLayer } from 'ol/layer';
-import { Vector as VectorSource } from 'ol/source';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Map, MapBrowserEvent, View} from 'ol';
+import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+import {OSM, Vector as VectorSource} from 'ol/source';
 import Feature from 'ol/Feature';
 import { Point, Geometry } from 'ol/geom';
 import { Style, Icon } from 'ol/style';
@@ -14,13 +12,13 @@ import { MapBrowserEvent } from 'ol';
 import { NgStyle } from "@angular/common";
 
 @Component({
-  selector: 'app-map',
-  standalone: true,
-  templateUrl: './map.component.html',
-  imports: [
-    NgStyle
-  ],
-  styleUrls: ['./map.component.scss']
+    selector: 'app-map',
+    standalone: true,
+    templateUrl: './map.component.html',
+    imports: [
+        NgStyle
+    ],
+    styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
   map!: Map;
@@ -28,7 +26,7 @@ export class MapComponent implements OnInit {
 
   iconSize = 0.15;
 
-  @ViewChild('tooltip_map', { static: true }) tooltip!: ElementRef;
+    @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
 
   constructor(private router: Router, private airtableService: AirtableService) {}
   
@@ -147,7 +145,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  openDetailPage(activityId: string): void {
-    this.router.navigate(['/activity-details', activityId]);
-  }
+    openDetailPage(activityId: string): void {
+        this.router.navigate(['/activity-details', activityId]);
+    }
 }
