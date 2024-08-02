@@ -1,16 +1,17 @@
 <div class="-translate-y-0.5">
-    <i data-bs-toggle="modal" data-bs-target="#exampleModal" class="bi bi-funnel w-[50px] h-full text-center text-gray-400 group-hover:text-black transition-all ease-in pl-2 border-l border-solid -mr-1 border-gray-400 cursor-pointer"></i>
+    <i class="bi bi-funnel w-[50px] h-full text-center text-gray-400 group-hover:text-black transition-all ease-in pl-2 border-l border-solid -mr-1 border-gray-400 cursor-pointer" data-bs-target="#exampleModal"
+       data-bs-toggle="modal"></i>
 </div>
-<div class="modal fade z-50" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade z-50" id="exampleModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title text-center fs-5" id="exampleModalLabel">Filter</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
             </div>
             <div class="modal-body flex flex-row flex-wrap gap-1">
                 @for (type of types$ | async; track $index) {
-                    @if(type.name) {
+                    @if (type.name) {
                         <button type="button" class="btn" data-bs-toggle="button"
                                 (click)="onFilter(type)">{{ type.name }}
                         </button>
@@ -18,8 +19,8 @@
                 }
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-danger" (click)="resetFilters()">Zurücksetzen</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="acceptFilters()">Auswahl
+                <button (click)="resetFilters()" class="btn btn-danger" type="button">Zurücksetzen</button>
+                <button (click)="acceptFilters()" class="btn btn-primary" data-bs-dismiss="modal" type="button">Auswahl
                     bestätigen
                 </button>
             </div>
