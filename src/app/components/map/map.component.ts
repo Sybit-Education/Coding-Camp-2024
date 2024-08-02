@@ -70,7 +70,6 @@ export class MapComponent implements OnInit {
       activities.forEach(activity => {
         const local = this.getBookmarked(activity.osm_id);
         console.log(`Activity: ${activity.name}, Bookmarked: ${local}, Color: ${activity.type.color}`);
-        const color = local ? "gold" : activity.type.color;
   
         const feature = new Feature({
           geometry: new Point(fromLonLat([activity.longitude, activity.latitude])),
@@ -112,7 +111,6 @@ export class MapComponent implements OnInit {
       const activity = (feature as Feature<Geometry>).get('activity');
       if (activity) {
         const tooltipElement = this.tooltip.nativeElement;
-        const color = this.getBookmarked(activity.osm_id) ? "gold" : activity.type.color;
         tooltipElement.innerHTML = activity.name + ' (' + activity.type.name + (this.getBookmarked(activity.osm_id) ? " / favorisiert" : "") + ')';
         tooltipElement.style.display = 'block';
         tooltipElement.style.left = event.originalEvent.pageX + 'px';
@@ -133,7 +131,6 @@ export class MapComponent implements OnInit {
       this.tooltip.nativeElement.style.display = 'none';
       this.vectorSource.getFeatures().forEach((feature: Feature<Geometry>) => {
         const activity = feature.get('activity');
-        const color = this.getBookmarked(activity.osm_id) ? "gold" : activity.type.color;
         feature.setStyle(new Style({
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
