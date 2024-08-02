@@ -28,7 +28,7 @@
                 @if (activity.number && activity.street) {
                     <span>{{ activity.street }} {{ activity.number }}</span>,
                 }
-                {{ activity.zip }} {{ activity.city }} {{ activity.country }}
+                {{ activity.zip }} {{ activity.city }}, {{ activity.country }}
             </address>
 
             <div class="flex gap-4 mt-2">
@@ -39,9 +39,9 @@
                     <span class="badge rounded-pill text-bg-danger">Keine Altersempfehlung</span>
                 }
                 @if (activity.barrier_free) {
-                    <span class="badge rounded-pill text-bg-success">Barierefrei</span>
+                    <span class="badge rounded-pill text-bg-success">Barrierefrei</span>
                 } @else {
-                    <span class="badge rounded-pill text-bg-danger">Nicht Barierefrei</span>
+                    <span class="badge rounded-pill text-bg-danger">Nicht Barrierefrei</span>
                 }
             </div>
             @if (activity.description) {
