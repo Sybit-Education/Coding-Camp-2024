@@ -22,6 +22,7 @@ import { Activity } from '../../types/activity.interface';
     styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+    isLoading = true;
     map!: Map;
     vectorSource!: VectorSource;
 
@@ -47,6 +48,7 @@ export class MapComponent implements OnInit {
   }
   
     ngOnInit(): void {
+      this.isLoading = true;
       this.vectorSource = new VectorSource();
       const vectorLayer = new VectorLayer({
         source: this.vectorSource
@@ -103,6 +105,7 @@ export class MapComponent implements OnInit {
           })
         }));
       });
+      this.isLoading = false;
     });
   }
 

@@ -21,6 +21,15 @@
   display: none;
 }
 
+.loading {
+  position: absolute;
+  z-index: 99;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  opacity: 80%;
+}
+
 @media (max-width: 768px) {
   .map {
     height: 80vh;
