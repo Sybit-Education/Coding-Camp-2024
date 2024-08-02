@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AirtableService } from '../../services/airtable.service';
 import { GeolocationService } from '../../services/geolocation.service';
 import {NgStyle} from "@angular/common";
+import { Activity } from '../../types/activity.interface';
 
 @Component({
     selector: 'app-map',
@@ -40,6 +41,10 @@ export class MapComponent implements OnInit {
       }
       return false;
     }
+
+  getColor(activity: Activity) {
+    return this.getBookmarked(activity.osm_id) ?  "gold" : activity.type.color
+  }
   
     ngOnInit(): void {
       this.vectorSource = new VectorSource();
@@ -77,24 +82,31 @@ export class MapComponent implements OnInit {
     // INITIALIZE
 
     this.airtableService.getActivityList().subscribe(activities => {
-      activities.forEach(activity => {
-        const local = this.getBookmarked(activity.osm_id);
-        console.log(`Activity: ${activity.name}, Bookmarked: ${local}, Color: ${activity.type.color}`);
-  
+      // Ensure features are added to the vector source and the map is refreshed
+      activities.forEach((activity) => {
         const feature = new Feature({
           geometry: new Point(fromLonLat([activity.longitude, activity.latitude])),
-          activity: activity
+          activity: activity,
+          style: new Style({
+            image: new Icon({
+              src: 'data:image/svg+xml;utf8,' + activity.type.svg,
+              color: this.getColor(activity),
+              size: [this.iconSize, this.iconSize]
+            })
+          })
         });
-  
+        this.vectorSource.addFeature(feature);
+      });
+      this.tooltip.nativeElement.style.display = 'none';
+      this.vectorSource.getFeatures().forEach((feature: Feature<Geometry>) => {
+        const activity = feature.get('activity');
         feature.setStyle(new Style({
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
-            color: activity.type.color,
-            size: [this.iconSize, this.iconSize]
+            color: this.getColor(activity),
+            scale: this.iconSize
           })
         }));
-  
-        this.vectorSource.addFeature(feature);
       });
     });
   }
@@ -128,7 +140,7 @@ export class MapComponent implements OnInit {
         (feature as Feature<Geometry>).setStyle(new Style({
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
-            color: activity.type.color,
+            color: this.getColor(activity),
             scale: this.iconSize,
           })
         }));
@@ -144,7 +156,7 @@ export class MapComponent implements OnInit {
         feature.setStyle(new Style({
           image: new Icon({
             src: 'data:image/svg+xml;utf8,' + activity.type.svg,
-            color: activity.type.color,
+            color: this.getColor(activity),
             scale: this.iconSize
           })
         }));

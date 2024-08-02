@@ -34,10 +34,8 @@ export class FavoritesComponent {
       for(const activity of this.airtable.activities) {
         if(savedLocations.includes(activity.osm_id)) bookmarks.push(activity)
       }
-      console.log("Bookmarks:\n" + bookmarks)
       return bookmarks;
     } else {
-      console.log("No bookmarks found!")
       return [];
     }
   }
