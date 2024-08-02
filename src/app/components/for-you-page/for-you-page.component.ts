@@ -3,14 +3,15 @@ import { Activity } from '../../types/activity.interface';
 import { AirtableService } from '../../services/airtable.service';
 import { ActivityCardComponent } from '../activity-card/activity-card.component';
 import { NgIf } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-for-you-page',
   standalone: true,
   imports: [
     ActivityCardComponent,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './for-you-page.component.html',
   styleUrl: './for-you-page.component.scss'
