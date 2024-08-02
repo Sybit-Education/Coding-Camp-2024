@@ -30,6 +30,7 @@ export class NavbarComponent {
         this.router.events.subscribe(() => {
             this.isRootUrl = this.router.url === '/';
             this.isMapUrl = this.router.url === '/map';
+            this.isHamburgerMenuActive = false;
         });
     }
 
