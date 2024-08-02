@@ -1,13 +1,15 @@
-main {
-    min-height: 77vh;
-}
-
 app-footer {
     width: 100%;
 }
+
+main {
+    padding: 0;
+}
+
+
 .footer-spacer {
     display: flex;
-    min-height: 100vh;
+    padding: 7vh 0 7vh 0;
     flex-direction: column;
     justify-content: space-between;
 }
