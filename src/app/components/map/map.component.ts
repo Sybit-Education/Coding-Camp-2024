@@ -4,10 +4,11 @@ import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import {OSM, Vector as VectorSource} from 'ol/source';
 import Feature from 'ol/Feature';
 import {Geometry, Point} from 'ol/geom';
-import {Circle, Fill, Stroke, Style} from 'ol/style';
+import {Circle, Fill, Stroke, Style, Icon} from 'ol/style';
 import {fromLonLat} from 'ol/proj';
 import {Router} from '@angular/router';
 import {AirtableService} from '../../services/airtable.service';
+import { GeolocationService } from '../../services/geolocation.service';
 import {NgStyle} from "@angular/common";
 
 @Component({
@@ -22,18 +23,14 @@ import {NgStyle} from "@angular/common";
 export class MapComponent implements OnInit {
     map!: Map;
     vectorSource!: VectorSource;
+    center = [8.970869314606485, 47.73981783654207];
+    userLocationFeature: Feature = new Feature();
 
     @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
 
-    constructor(private router: Router, private airtableService: AirtableService) {
-    }
-
-    getBookmarked(osm_id: number | null | undefined) {
-        const item = localStorage.getItem("savedLocations")
-        if (item) {
-            const savedLocations = JSON.parse(item)
-            return savedLocations.includes(osm_id)
-        }
+    constructor(private router: Router, 
+        private airtableService: AirtableService, 
+        private geolocationService: GeolocationService) {
     }
 
     ngOnInit(): void {
@@ -51,12 +48,20 @@ export class MapComponent implements OnInit {
                 vectorLayer
             ],
             view: new View({
-                center: fromLonLat([8.970869314606485, 47.73981783654207]),
+                center: fromLonLat(this.center),
                 zoom: 3,
-                minZoom: 12,
+                minZoom: 10,
                 maxZoom: 25
             })
         });
+
+        this.userLocationFeature.setStyle(new Style({
+            image: new Icon({
+              src: '/pin/current-location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
+              anchor: [0.5, 1], // Bildausrichtung
+              scale: 1.1 // Größe des Pins
+            })
+          }));        
 
         this.map.on('click', this.handleMapClick.bind(this));
         this.map.on('pointermove', this.handlePointerMove.bind(this));
@@ -75,7 +80,7 @@ export class MapComponent implements OnInit {
                 feature.setStyle(new Style({
                     image: new Circle({
                         radius: 8,
-                        fill: new Fill({color: activity.type.color}),
+                        fill: new Fill({color: activity?.type.color}),
                         stroke: new Stroke({color: color, width: borderSize})
                     })
                 }));
@@ -83,7 +88,6 @@ export class MapComponent implements OnInit {
                 this.vectorSource.addFeature(feature);
             });
         });
-
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -142,4 +146,26 @@ export class MapComponent implements OnInit {
     openDetailPage(activityId: string): void {
         this.router.navigate(['/activity-details', activityId]);
     }
+
+    getBookmarked(osm_id: number | null | undefined) {
+        const item = localStorage.getItem("savedLocations")
+        if (item) {
+            const savedLocations = JSON.parse(item)
+            return savedLocations.includes(osm_id)
+        }
+    }
+
+    updateCurrentLocation() {
+        this.geolocationService.getCurrentPosition()
+          .then(position => {
+            this.center = [position.coords.longitude, position.coords.latitude];
+            console.log('Center: ', this.center);
+            this.map.getView().setCenter(fromLonLat(this.center));
+            const coordinates = fromLonLat(this.center);
+            this.userLocationFeature.setGeometry(new Point(coordinates));            
+          })
+          .catch(error => {
+            console.error('Error getting location: ', error);
+          });
+      }    
 }
