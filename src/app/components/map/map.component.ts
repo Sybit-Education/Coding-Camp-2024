@@ -68,9 +68,6 @@ export class MapComponent implements OnInit {
 
     this.airtableService.getActivityList().subscribe(activities => {
       activities.forEach(activity => {
-        const local = this.getBookmarked(activity.osm_id);
-        console.log(`Activity: ${activity.name}, Bookmarked: ${local}, Color: ${activity.type.color}`);
-  
         const feature = new Feature({
           geometry: new Point(fromLonLat([activity.longitude, activity.latitude])),
           activity: activity
