@@ -16,7 +16,9 @@
                 (input)="onSearch()"
                 (keydown)="onEnterKey($event)"
         />
-        <app-home-filter></app-home-filter>
+        <div class="h-full flex justify-center items-center w-10 mr-2 border-l pl-5 border-solid border-gray-400">
+            <app-home-filter></app-home-filter>
+        </div>
     </div>
     @if ( !isMapUrl) {
     <button routerLink="/map" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
