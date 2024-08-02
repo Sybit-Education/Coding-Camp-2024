@@ -51,6 +51,7 @@ export class MapComponent implements OnInit {
       const vectorLayer = new VectorLayer({
         source: this.vectorSource
       });
+      vectorLayer.setZIndex(1);
   
       this.map = new Map({
         target: 'map',
@@ -67,15 +68,9 @@ export class MapComponent implements OnInit {
         maxZoom: 25
       })
     });
-    this.userLocationFeature.setStyle(new Style({
-        image: new Icon({
-          src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
-          anchor: [0.5, 1], // Bildausrichtung
-          scale: 0.09 // Größe des Pins
-        })
-      }));
+    
+    this.addUserLocationPinLayer();
 
-    this.vectorSource.addFeature(this.userLocationFeature);
     this.map.on('click', this.handleMapClick.bind(this));
     this.map.on('pointermove', this.handlePointerMove.bind(this));
   
@@ -109,6 +104,23 @@ export class MapComponent implements OnInit {
         }));
       });
     });
+  }
+
+  private addUserLocationPinLayer() {
+    this.userLocationFeature.setStyle(new Style({
+      image: new Icon({
+        src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
+        anchor: [0.5, 1], // Bildausrichtung
+        scale: 0.09 // Größe des Pins
+      })
+    }));
+    const userLocationVectorSource = new VectorSource();
+    userLocationVectorSource.addFeature(this.userLocationFeature);
+    const userLocationVectorLayer = new VectorLayer({
+      source: userLocationVectorSource
+    });
+    userLocationVectorLayer.setZIndex(2);
+    this.map.addLayer(userLocationVectorLayer);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
