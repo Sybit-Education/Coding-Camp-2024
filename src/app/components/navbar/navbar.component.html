@@ -18,7 +18,7 @@
         />
         <app-home-filter></app-home-filter>
     </div>
-    @if (isRootUrl) {
+    @if ( !isMapUrl) {
     <button routerLink="/map" class="btn hide-on-mobile rounded-full"><i class="bi bi-map"></i></button>
     } @else {
     <button routerLink="/" class="btn hide-on-mobile rounded-full"><i class="bi bi-list-ul"></i></button>

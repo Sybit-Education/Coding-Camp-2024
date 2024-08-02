@@ -23,11 +23,13 @@ import { FilterComponent } from "../filter/filter.component";
 export class NavbarComponent {
     searchTerm = '';
     isRootUrl = false;
+    isMapUrl = false;
     isHamburgerMenuActive = false;
 
     constructor(private router: Router) {
         this.router.events.subscribe(() => {
             this.isRootUrl = this.router.url === '/';
+            this.isMapUrl = this.router.url === '/map';
         });
     }
 
