@@ -1,15 +1,15 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {Map, View} from 'ol';
+import { Map, View, MapBrowserEvent } from 'ol';
 import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
 import {OSM, Vector as VectorSource} from 'ol/source';
 import Feature from 'ol/Feature';
-import { Point, Geometry } from 'ol/geom';
+import { Geometry, Point } from 'ol/geom';
 import { Style, Icon } from 'ol/style';
 import { fromLonLat } from 'ol/proj';
 import { Router } from '@angular/router';
 import { AirtableService } from '../../services/airtable.service';
-import { MapBrowserEvent } from 'ol';
-import { NgStyle } from "@angular/common";
+import { GeolocationService } from '../../services/geolocation.service';
+import {NgStyle} from "@angular/common";
 import { Activity } from '../../types/activity.interface';
 
 @Component({
@@ -22,50 +22,60 @@ import { Activity } from '../../types/activity.interface';
     styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  map!: Map;
-  vectorSource!: VectorSource;
+    map!: Map;
+    vectorSource!: VectorSource;
 
   //iconSize = 0.15;
+    center = [8.970869314606485, 47.73981783654207];
+    userLocationFeature: Feature = new Feature();
 
   @ViewChild('tooltip_map', {static: true}) tooltip!: ElementRef;
 
-  constructor(private router: Router, private airtableService: AirtableService) {}
-  
-  getBookmarked(osm_id: number | null | undefined) {
-    const item = localStorage.getItem("savedLocations")
-    if (item) {
-      const savedLocations = JSON.parse(item)
-      return savedLocations.includes(osm_id)
+    constructor(private router: Router, private airtableService: AirtableService, private geolocationService: GeolocationService) {}
+
+    getBookmarked(osm_id: number | null | undefined) {
+      const item = localStorage.getItem("savedLocations")
+      if (item) {
+        const savedLocations = JSON.parse(item)
+        return savedLocations.includes(osm_id)
+      }
+      return false;
     }
-    return false;
-  }
 
   getColor(activity: Activity) {
     return this.getBookmarked(activity.osm_id) ?  "gold" : activity.type.color
   }
   
-  ngOnInit(): void {
-    this.vectorSource = new VectorSource();
-    const vectorLayer = new VectorLayer({
-      source: this.vectorSource
-    });
+    ngOnInit(): void {
+      this.vectorSource = new VectorSource();
+      const vectorLayer = new VectorLayer({
+        source: this.vectorSource
+      });
   
-    this.map = new Map({
-      target: 'map',
-      layers: [
-        new TileLayer({
+      this.map = new Map({
+        target: 'map',
+        layers: [
+          new TileLayer({
           source: new OSM()
         }),
         vectorLayer
       ],
       view: new View({
-        center: fromLonLat([8.970869314606485, 47.73981783654207]),
+        center: fromLonLat(this.center),
         zoom: 3,
         minZoom: 10,
         maxZoom: 25
       })
     });
-  
+    this.userLocationFeature.setStyle(new Style({
+        image: new Icon({
+          src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
+          anchor: [0.5, 1], // Bildausrichtung
+          scale: 0.05 // Größe des Pins
+        })
+      }));
+
+    this.vectorSource.addFeature(this.userLocationFeature);
     this.map.on('click', this.handleMapClick.bind(this));
     this.map.on('pointermove', this.handlePointerMove.bind(this));
   
@@ -156,5 +166,19 @@ export class MapComponent implements OnInit {
 
     openDetailPage(activityId: string): void {
         this.router.navigate(['/activity-details', activityId]);
+    }
+
+    updateCurrentLocation() {
+        this.geolocationService.getCurrentPosition()
+          .then(position => {
+            this.center = [position.coords.longitude, position.coords.latitude];
+            console.log('Center: ', this.center);
+            this.map.getView().setCenter(fromLonLat(this.center));
+            const coordinates = fromLonLat(this.center);
+            this.userLocationFeature.setGeometry(new Point(coordinates));
+          })
+          .catch(error => {
+            console.error('Error getting location: ', error);
+          });
     }
 }

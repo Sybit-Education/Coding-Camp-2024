@@ -1,20 +1,12 @@
-app-footer {
-    width: 100%;
+
+::ng-deep .btn-current-location {
+  position: absolute;
+  top:60px;
+  right: 40px;
+  z-index: 1000;
 }
 
 main {
     padding: 0;
     min-height: 77vh;
-}
-
-
-.footer-spacer {
-    display: flex;
-    padding: 7vh 0 7vh 0;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-app-navbar {
-    z-index: 5;
 }
