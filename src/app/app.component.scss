@@ -1,19 +1,7 @@
-app-footer {
-    width: 100%;
-}
 
-main {
-    padding: 0;
-}
-
-
-.footer-spacer {
-    display: flex;
-    padding: 7vh 0 7vh 0;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-app-navbar {
-    z-index: 5;
+::ng-deep .btn-current-location {
+  position: absolute;
+  top:60px;
+  right: 40px;
+  z-index: 1000;
 }
