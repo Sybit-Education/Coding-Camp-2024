@@ -64,9 +64,9 @@ export class MapComponent implements OnInit {
     });
     this.userLocationFeature.setStyle(new Style({
         image: new Icon({
-          src: '/pin/current-location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
+          src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
           anchor: [0.5, 1], // Bildausrichtung
-          scale: 1.1 // Größe des Pins
+          scale: 0.05 // Größe des Pins
         })
       }));
     
