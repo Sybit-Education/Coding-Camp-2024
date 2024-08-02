@@ -45,7 +45,7 @@ export class NavbarComponent {
 
     onEnterKey(event: KeyboardEvent) {
         if (event.key === 'Enter') {
-            this.router.navigate([], {
+            this.router.navigate(["/search-result"], {
                 queryParams: {
                     ...this.router.routerState.snapshot.root.queryParams,
                     q: this.searchTerm
