@@ -23,7 +23,15 @@
     } @else {
     <button routerLink="/" class="btn hide-on-mobile rounded-full"><i class="bi bi-list-ul"></i></button>
     }
-    <button routerLink="/favorites" class="btn hide-on-mobile rounded-full"><i class="bi bi-bookmark"></i></button>
+    <button routerLink="/favorites" class="btn hide-on-mobile rounded-full"><span><i class="bi bi-bookmark"></i>
+        @if(getFavouriteCount()>0) {
+            <span class="badge badge-pill badge-danger bg-red-500 text-white" 
+                style="font-size: 8px;position: absolute;top:1.5rem;z-index:99;">
+                {{getFavouriteCount()}}
+            </span>
+        }
+    </span>
+    </button>
     @if(isHamburgerMenuActive) {
         <button type="button" (click)="showHamburgerMenu()" class="btn border-none text-white show-on-mobile hover:bg-[#6bc4f6]">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
@@ -46,7 +54,12 @@
         <div class="fixed w-screen h-screen bg-[#6bc4f6] z-[49] flex flex-col pt-5 gap-y-5">
             <a href="/" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-collection"></i>Für dich</a>
             <a href="/map" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-map"></i>Karte</a>
-            <a href="/favorites" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-bookmark"></i>Favoriten</a>
+            <a href="/favorites" class="text-white font-semibold text-3xl transition-all ease-in duration-75 active:translate-x-5 hover:translate-x-5 flex flex-row gap-x-5 ml-5"><i class="bi bi-bookmark"></i>Favoriten
+            @if(getFavouriteCount()>0) {
+                <span class="bg-red-500 text-white rounded-full p-1">{{getFavouriteCount()}}</span>
+            }
+        
+        </a>
         </div>
     </div>
 }
