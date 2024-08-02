@@ -2,15 +2,13 @@
     max-height: 40vh;
     object-fit: cover;
 }
-.barrier_free{
-    text-align: left;
-    display: flex;
-    vertical-align: baseline;
-}
-
 
 @media (max-width: 768px) {
     .button-text {
         display: none;
     }
+}
+
+.badge {
+    padding: 0.5rem;
 }

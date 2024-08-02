@@ -1,65 +1,72 @@
-@if(activity) {
+@if (activity) {
 
-<div class="card my-4 bg-gray-100 shadow-md">
-    @if (activity.media) {
-        <img class="card-img-top" [src]="activity.media.file?.[0].url" alt="{{activity.name}} Bild">
-    }
-
-    <div class="buttons flex gap-4">
-        <button class="btn" onclick="history.back()">
-            <span><i class="bi bi-arrow-left"></i> Zurück</span>
-        </button>
-        @if (activity.website) {
-            <a href="{{activity.website}}" class="btn" role="button" >
-                <span><i class="bi bi-link-45deg"></i> Website</span>
-            </a>
+    <div class="card my-4 bg-gray-100 shadow-md">
+        @if (activity.media) {
+            <img class="card-img-top" [src]="activity.media.file?.[0].url" alt="{{activity.name}} Bild">
         }
-        @if (activity.maps_link) {
-            <a href="{{activity.maps_link}}" class="btn" role="button" >
-                <span><i class="bi bi-pin-map-fill"></i> Maps</span>
-            </a>
-        }
-    </div> 
-        
-    <div class="card-body">  
 
-        <h1 class="card-title text-2xl font-bold text-gray-800">
-            {{ activity.name }} | {{ activity.type.name }}
-        </h1>
+        <div class="card-body">
 
-        <address class="adresse mt-2 text-gray-700">
-            <i class="bi bi-geo"></i>
-            @if(activity.number && activity.street) {
-                <span>{{activity.street}} {{activity.number}}</span>,
-            }
-            {{activity.zip}} {{activity.city}} {{activity.country}}
-        </address>
-
-
-
-    @if (activity.age_restriction) {
-        <div class="minimal-age mt-2 text-red-400">
-            Altersempfehlung: ab {{ activity.age_restriction }} Jahre
-        </div>
-    }
-    @if(activity.barrier_free) {
-        <div class="flex flex-row flex-wrap gap-2 mt-4">      
-            <div class="flex flex-row gap-x-2 p-2 pl-4 max-h-[40px] overflow-hidden justify-start items-center bg-blue-300 w-[120px] hover:w-[280px] cursor-pointer select-none transition-all ease-in duration-75 border-blue-400 border-solid border-2 rounded-md">
-                <i class="bi bi-person-wheelchair"></i>
-                <span class="text-[15px] font-semibold">Barrierefrei</span>
-                <span class="text-[11px] font-medium text-nowrap">Diese Aktivität ist barrierefrei.</span>
+            <div class="flex items-center justify-between">
+                <h1 class="card-title text-2xl font-bold text-gray-800">
+                    {{ activity.name }} | {{ activity.type.name }}
+                </h1>
+                <button
+                        (click)="onBookmark(activity?.osm_id)"
+                        class="bg-[#6bc4f6] hover:bg-[#1891d7] active:bg-[#6bc4f6] transition-all ease-in duration-75 min-w-10 min-h-10 max-h-10 max-w-10 w-10 h-10 flex justify-center items-center text-white rounded-md">
+                    @if (isBookmarked) {
+                        <i id="bookmark_id_2" class="bi bi-bookmark-fill"
+                        ></i>
+                    } @else {
+                        <i id="bookmark_id_1" class="bi bi-bookmark"></i>
+                    }
+                </button>
             </div>
-        </div>
-    }
 
-    @if (activity.description){
-        <hr class="my-4">
-        <div class="card-text text-gray-700">
-            {{ activity.description }}
+            <address class="adresse mt-2 text-gray-700">
+                <i class="bi bi-geo"></i>
+                @if (activity.number && activity.street) {
+                    <span>{{ activity.street }} {{ activity.number }}</span>,
+                }
+                {{ activity.zip }} {{ activity.city }} {{ activity.country }}
+            </address>
+
+            <div class="flex gap-4 mt-2">
+                @if (activity.age_restriction) {
+                    <span class="badge rounded-pill text-bg-success">Altersempfehlung: ab {{ activity.age_restriction }} Jahre</span>
+                } @else {
+                    <span class="badge rounded-pill text-bg-danger">Keine Altersempfehlung</span>
+                }
+                @if (activity.barrier_free) {
+                    <span class="badge rounded-pill text-bg-success">Barierefrei</span>
+                } @else {
+                    <span class="badge rounded-pill text-bg-danger">Nicht Barierefrei</span>
+                }
+            </div>
+
+            @if (activity.description) {
+                <div class="card-text text-gray-700 mt-2">
+                    {{ activity.description }}
+                </div>
+            }
         </div>
-    }
+
+        <div class="buttons flex gap-4 mt-4">
+            <button class="btn" onclick="history.back()">
+                <span><i class="bi bi-arrow-left"></i> Zurück</span>
+            </button>
+            @if (activity.website) {
+                <a href="{{activity.website}}" class="btn" role="button">
+                    <span><i class="bi bi-link-45deg"></i> Website</span>
+                </a>
+            }
+            @if (activity.maps_link) {
+                <a href="{{activity.maps_link}}" class="btn" role="button">
+                    <span><i class="bi bi-pin-map-fill"></i> Maps</span>
+                </a>
+            }
+        </div>
     </div>
-</div>
 } @else {
     <div class="card my-4 bg-gray-100 shadow-md" style="height: 80vh;">
         <div class="card-img-top" style="background-color: lightgray; width:100%; height: 30vh;"></div>
