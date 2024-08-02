@@ -22,6 +22,7 @@ import { Activity } from '../../types/activity.interface';
     styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
+    isLoading = true;
     map!: Map;
     vectorSource!: VectorSource;
 
@@ -47,10 +48,12 @@ export class MapComponent implements OnInit {
   }
   
     ngOnInit(): void {
+      this.isLoading = true;
       this.vectorSource = new VectorSource();
       const vectorLayer = new VectorLayer({
         source: this.vectorSource
       });
+      vectorLayer.setZIndex(1);
   
       this.map = new Map({
         target: 'map',
@@ -67,15 +70,9 @@ export class MapComponent implements OnInit {
         maxZoom: 25
       })
     });
-    this.userLocationFeature.setStyle(new Style({
-        image: new Icon({
-          src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
-          anchor: [0.5, 1], // Bildausrichtung
-          scale: 0.05 // Größe des Pins
-        })
-      }));
+    
+    this.addUserLocationPinLayer();
 
-    this.vectorSource.addFeature(this.userLocationFeature);
     this.map.on('click', this.handleMapClick.bind(this));
     this.map.on('pointermove', this.handlePointerMove.bind(this));
   
@@ -108,7 +105,25 @@ export class MapComponent implements OnInit {
           })
         }));
       });
+      this.isLoading = false;
     });
+  }
+
+  private addUserLocationPinLayer() {
+    this.userLocationFeature.setStyle(new Style({
+      image: new Icon({
+        src: '/pin/my_location.png', // Pfad zu deinem benutzerdefinierten Pin-Bild
+        anchor: [0.5, 1], // Bildausrichtung
+        scale: 0.09 // Größe des Pins
+      })
+    }));
+    const userLocationVectorSource = new VectorSource();
+    userLocationVectorSource.addFeature(this.userLocationFeature);
+    const userLocationVectorLayer = new VectorLayer({
+      source: userLocationVectorSource
+    });
+    userLocationVectorLayer.setZIndex(2);
+    this.map.addLayer(userLocationVectorLayer);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
